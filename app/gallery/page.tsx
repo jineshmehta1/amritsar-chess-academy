@@ -3,584 +3,148 @@
 import { useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { X, Camera, Award, Users, Trophy } from "lucide-react"
+import { X, Camera, Award, Users, Trophy, Quote, Search } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import GalleryHero from "@/components/galleryBanner"
 
+const navy = "#12123D"
+const orange = "#FF6B00"
 
 export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [activeFilter, setActiveFilter] = useState("all")
 
   const images = [
-    {
-      id: 16,
-      src: "/fide-manvendra.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/program1.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program2.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program3.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program4.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program5.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program6.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program7.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program8.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program9.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program10.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program11.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program12.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program13.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program14.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program15.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program16.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program17.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program18.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program19.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program20.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program22.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program23.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program24.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program25.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program26.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program27.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program28.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program29.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program30.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program31.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program32.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program33.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program34.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program35.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program36.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },{
-      id: 16,
-      src: "/program37.jpeg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-8.jpg",
-      category: "acheivements",
-      title: "Gold medalist",
-      description: "Asian Youth Chess Championship 2025 Gold Medalist",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-4.jpg",
-      category: "academy",
-      title: "Kamlesh sir",
-      description: "Kamlesh sir with CM Madhvendra Pratap Sharma",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-3.jpg",
-      category: "academy",
-      title: "Victory Parade",
-      description: "CM Madhvendra Pratap Sharma being honored in victory parade",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-9.jpg",
-      category: "academy",
-      title: "Gold Medalist",
-      description: "commonwealth games gold medalist with genius chess academy guidance",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-1.jpg",
-      category: "academy",
-      title: "Gold Medalist",
-      description: "CM Madhvendra Pratap Sharma",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-2.jpg",
-      category: "academy",
-      title: "Gold Medalist",
-      description: "CM Madhvendra Pratap Sharma",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-7.jpg",
-      category: "academy",
-      title: "Gold Medalist with Father and Coach",
-      description: "CM Madhvendra Pratap Sharma",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/man-10.jpg",
-      category: "academy",
-      title: "Gold Medalist with Coach Kamlesh Sir",
-      description: "CM Madhvendra Pratap Sharma",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 16,
-      src: "/magnus.jpg",
-      category: "academy",
-      title: "Magnus",
-      description: "Pravin thipsay sir with magnus carlson",
-      achievement: "Kings of chess",
-    },
-    {
-      id: 17,
-      src: "/gukesh.jpg",
-      category: "tournaments",
-      title: "Gukesh",
-      description: "Pravin thipsay sir sharing years of wisdom with gukesh",
-      achievement: "wizards of chess",
-    },
-    {
-      id: 18,
-      src: "/im2.jpg",
-      category: "acheivements",
-      title: "National awards",
-      description: "International Master Bhagyashree Thipsay Padma Shri and Arjuna Awardee",
-      achievement: "Certified Masters",
-    },
-    {
-      id: 1,
-      src: "/gallery-1.jpg",
-      category: "tournaments",
-      title: "National Amature Chess Championship 2024",
-      description: "Our students celebrating their victory at the Regional Chess Championship 2024",
-      achievement: "1st Place Regional",
-    },
-    {
-      id: 3,
-      src: "/gallery-3.jpg",
-      category: "achievements",
-      title: "First Tournament Victory",
-      description: "Himadri's emotional first tournament victory after 6 months of dedicated training",
-      achievement: "Breakthrough Win",
-    },
-    {
-      id: 4,
-      src: "/gallery-4.jpg",
-      category: "achievements",
-      title: "Awarded By Mr. C.P. Joshi",
-      description: "Three students awarded by M.P. sir at prestigious program.",
-      achievement: "Big Stage",
-    },
-    {
-      id: 5,
-      src: "/gallery-5.jpg",
-      category: "students",
-      title: "Our Chess Family",
-      description: "Students and parents celebrating another successful semester together",
-      achievement: "Community Spirit",
-    },
-    {
-      id: 6,
-      src: "/gallery-6.jpg",
-      category: "academy",
-      title: "Grandmaster's in Action",
-      description: "International Grandmaster's demonstrating advanced tactics to intermediate students",
-      achievement: "Expert Guidance",
-    },
-    {
-      id: 7,
-      src: "/gallery-7.jpg",
-      category: "academy",
-      title: "Wall of Champions",
-      description: "Champions Guiding new generation of champions",
-      achievement: "20 Years Success",
-    },
-    {
-      id: 8,
-      src: "/gallery-8.jpg",
-      category: "achievements",
-      title: "Awarded at prestigious stage",
-      description: "Students from our academy getting worldwide recognition.",
-      achievement: "Global Reach",
-    },
-    {
-      id: 9,
-      src: "/gallery-9.jpg",
-      category: "tournaments",
-      title: "Tournament-Winners",
-      description: "Professional chess sets and digital boards used in all our training sessions",
-      achievement: "Premium Quality",
-    },
-    {
-      id: 10,
-      src: "/gallery-10.jpg",
-      category: "achievements",
-      title: "Young Champions",
-      description: "Our students representing their states at the National Junior Championships",
-      achievement: "National Level",
-    },
-    {
-      id: 11,
-      src: "/gallery-11.jpg",
-      category: "students",
-      title: "National Champions",
-      description: "Stuudents are competing and winning National Tournaments.",
-      achievement: "National Champions",
-    },
-    {
-      id: 12,
-      src: "/gallery-13.jpg",
-      category: "achievements",
-      title: "Graduation Ceremony",
-      description: "Students receiving certificates after completing their chess mastery programs",
-      achievement: "Certified Masters",
-    },
-    {
-      id: 13,
-      src: "/im1.jpg",
-      category: "academy",
-      title: "Masters",
-      description: "International master Bhagyashree Thipsay",
-      achievement: "Masters",
-    },
-    {
-      id: 14,
-      src: "/imchess.jpg",
-      category: "academy",
-      title: "Bhagyashree Mam",
-      description: "Students learing from legends themselves.",
-      achievement: "International masters",
-    },
-    {
-      id: 15,
-      src: "/gallery-14.jpg",
-      category: "students",
-      title: "Founder Guidence",
-      description: "Students winning national tournaments after completing their chess mastery programs",
-      achievement: "Certified Masters",
-    }
+    { id: 1, src: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=2071&auto=format&fit=crop", category: "tournaments", title: "Championship Focus", label: "National Stage" },
+    { id: 2, src: "https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=2070&auto=format&fit=crop", category: "club", title: "Training Hall", label: "Amritsar Base" },
+    { id: 3, src: "https://images.unsplash.com/photo-1528819622765-d6bcf132f793?q=80&w=2070&auto=format&fit=crop", category: "achievements", title: "Golden Moments", label: "Trophy Wall" },
+    { id: 4, src: "https://images.unsplash.com/photo-1560174038-da43ac74f01b?q=80&w=2070&auto=format&fit=crop", category: "classes", title: "Junior Session", label: "Future GMs" },
+    { id: 5, src: "https://images.unsplash.com/photo-1580541832626-2a7131ee809f?q=80&w=2072&auto=format&fit=crop", category: "students", title: "Strategic Analysis", label: "Deep Study" },
+    { id: 6, src: "https://images.unsplash.com/photo-1611195974226-a6a9be9dd763?q=80&w=1974&auto=format&fit=crop", category: "tournaments", title: "Blitz Battle", label: "Speed Chess" },
   ]
 
   const filters = [
-    { id: "all", label: "All Photos", icon: Camera },
-    { id: "tournaments", label: "Tournaments", icon: Trophy },
-    { id: "classes", label: "Classes", icon: Users },
-    { id: "achievements", label: "Achievements", icon: Award },
-    { id: "students", label: "Students", icon: Users },
-    { id: "academy", label: "Academy", icon: Camera },
+    { id: "all", label: "All Moments" },
+    { id: "tournaments", label: "Events" },
+    { id: "classes", label: "Training" },
+    { id: "achievements", label: "Wins" },
+    { id: "students", label: "Our Family" },
+  ]
+
+  const stats = [
+    { label: "High Res Photos", value: "500+", icon: Camera },
+    { label: "Wins Captured", value: "150+", icon: Trophy },
+    { label: "Years Recorded", value: "14+", icon: Award },
   ]
 
   const filteredImages = activeFilter === "all" ? images : images.filter((img) => img.category === activeFilter)
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
+      <GalleryHero />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 md:pt-32 md:pb-20 bg-gradient-to-br from-white via-purple-50/30 to-blue-50/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
-            Photo{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Gallery</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Capturing moments of learning, achievement, and joy in our chess community over 20 years of excellence
-          </p>
+      {/* STATS STRIP - Testimonial Style */}
+      <section className="relative -mt-12 z-20 px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+          {stats.map((stat, i) => (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              key={i}
+              className="bg-white p-8 rounded-[2rem] shadow-xl flex items-center gap-6"
+              style={{ borderBottom: `6px solid ${i % 2 === 0 ? orange : navy}` }}
+            >
+              <div className="p-4 rounded-2xl bg-slate-50">
+                <stat.icon size={32} style={{ color: i % 2 === 0 ? orange : navy }} />
+              </div>
+              <div>
+                <div className="text-3xl font-black" style={{ color: navy }}>{stat.value}</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{stat.label}</div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
-            <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                  500+
-                </div>
-                <div className="text-gray-600 font-semibold text-sm sm:text-base">Memorable Moments</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent mb-2">
-                  150+
-                </div>
-                <div className="text-gray-600 font-semibold text-sm sm:text-base">Tournament Victories</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent mb-2">
-                  20+
-                </div>
-                <div className="text-gray-600 font-semibold text-sm sm:text-base">Years Documented</div>
-              </CardContent>
-            </Card>
-          </div>
+      {/* GALLERY HEADER */}
+      <section className="pt-24 pb-12 px-6 relative overflow-hidden">
+        <div className="absolute top-20 right-10 text-slate-200/50 -z-0">
+          <Quote size={200} fill="currentColor" className="rotate-180" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <motion.div className="flex items-center justify-center gap-2 mb-4">
+            <div className="h-2 w-2 rounded-full" style={{ backgroundColor: orange }} />
+            <span className="text-[11px] font-black uppercase tracking-[0.4em]" style={{ color: orange }}>
+              Visual Excellence
+            </span>
+            <div className="h-2 w-2 rounded-full" style={{ backgroundColor: orange }} />
+          </motion.div>
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12" style={{ color: navy }}>
+            Capture the <span style={{ color: orange }}>Movement.</span>
+          </h2>
+
+          {/* FILTERS - Testimonial Button Style */}
+          <div className="flex flex-wrap justify-center gap-3">
             {filters.map((filter) => (
-              <Button
+              <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
-                variant={activeFilter === filter.id ? "default" : "outline"}
-                className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full font-bold transition-all duration-300 text-sm sm:text-base ${
-                  activeFilter === filter.id
-                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 shadow-lg"
-                    : "border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white bg-transparent"
+                className={`px-8 py-3 rounded-full text-[11px] font-black uppercase tracking-widest transition-all duration-300 shadow-sm ${
+                  activeFilter === filter.id 
+                    ? "text-white scale-105" 
+                    : "bg-white text-slate-500 hover:bg-slate-100"
                 }`}
+                style={{ 
+                  backgroundColor: activeFilter === filter.id ? navy : "",
+                  borderBottom: activeFilter === filter.id ? `4px solid ${orange}` : "none"
+                }}
               >
-                <filter.icon className="w-4 h-4 mr-2" />
                 {filter.label}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Gallery Grid */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
-            <AnimatePresence>
-              {filteredImages.map((image) => (
+      {/* GALLERY GRID */}
+      <section className="pb-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredImages.map((image, i) => (
                 <motion.div
                   key={image.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.3 }}
-                  className="group cursor-pointer"
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  whileHover={{ y: -10 }}
+                  className="bg-white rounded-[2.5rem] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 group"
+                  style={{ borderBottom: `6px solid ${i % 2 === 0 ? orange : navy}` }}
                   onClick={() => setSelectedImage(image.src)}
                 >
-                  <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-0 overflow-hidden">
-                    <div className="relative overflow-hidden aspect-square">
-                      <img
-                        src={image.src || "/placeholder.svg"}
-                        alt={image.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end">
-                        
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <img
+                      src={image.src}
+                      alt={image.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#12123D]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-10">
+                      <div className="bg-orange-500 text-white text-[9px] font-black uppercase tracking-widest w-fit px-3 py-1 rounded-full mb-3">
+                        {image.label}
                       </div>
+                      <h3 className="text-2xl font-black text-white leading-tight">{image.title}</h3>
                     </div>
-                  </Card>
+                    {/* Floating Zoom Icon */}
+                    <div className="absolute top-6 right-6 bg-white/20 backdrop-blur-md p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all">
+                      <Search size={20} className="text-white" />
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -588,68 +152,55 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Lightbox Modal */}
+      {/* LIGHTBOX */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-[#12123D]/95 flex items-center justify-center z-[100] p-6"
             onClick={() => setSelectedImage(null)}
           >
-            <motion.div
+            <button className="absolute top-10 right-10 text-white hover:rotate-90 transition-transform">
+              <X size={40} />
+            </button>
+            <motion.img
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-              className="relative max-w-4xl max-h-[90vh] w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={selectedImage || "/placeholder.svg"}
-                alt="Gallery image"
-                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl mx-auto"
-              />
-              <Button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/20 hover:bg-white/30 text-white border-0 rounded-full h-10 w-10 p-2 backdrop-blur-sm"
-                size="sm"
-              >
-                <X className="w-6 h-6" />
-              </Button>
-            </motion.div>
+              src={selectedImage}
+              className="max-w-full max-h-[80vh] rounded-[2rem] shadow-2xl border-4 border-white/10"
+            />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/chess-pattern.svg')] opacity-5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-8">
-            Ready to Create Your Own{" "}
-            <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-              Success Story?
-            </span>
-          </h2>
-          <p className="text-lg sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Join our community of champions and be part of our next gallery showcase
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <Link href = "/book-demo">
-            <Button className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
-              Book Your FREE Demo Class
-            </Button>
-            </Link>
-            <Link href = "/sucess-stories">
-            <Button
-              variant="outline"
-              className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full bg-transparent transition-all duration-300"
-            >
-              View Success Stories
-            </Button>
-            </Link>
-          </div>
+      {/* CTA SECTION - Bold Navy/Orange */}
+      <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto bg-[#12123D] rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl border-b-[12px] border-orange-500">
+           {/* Decorative background king */}
+           <img src="/king1.png" className="absolute -bottom-10 -right-10 w-64 opacity-10 pointer-events-none" />
+           
+           <h2 className="text-3xl md:text-5xl font-black text-white mb-8 tracking-tighter">
+            Ready to make your <span style={{ color: orange }}>next move?</span>
+           </h2>
+           <p className="text-slate-400 font-medium mb-12 max-w-2xl mx-auto">
+             Join Amritsar's premier chess club and start building your own gallery of victories. 
+             Book a free demo session today.
+           </p>
+
+           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+              <Link href="https://wa.me/919988775581">
+                <button className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-sm transition-all hover:scale-105 shadow-lg">
+                  Book Free Demo
+                </button>
+              </Link>
+              <Link href="/contact">
+                <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-sm transition-all border border-white/20">
+                  Contact Coach
+                </button>
+              </Link>
+           </div>
         </div>
       </section>
 

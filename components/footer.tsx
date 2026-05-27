@@ -1,63 +1,82 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, MessageCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, MessageCircle, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
+  const navy = "#12123D"
+  const orange = "#FF6B00"
+  const purple = "#7C3AED"
+
+  const quickLinks = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About Us" },
+    { href: "/curriculum", label: "Curriculum" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/achievements", label: "Achievements" },
+    { href: "/blog", label: "Chess Blog" },
+  ]
+
+  const programs = [
+    { href: "/online-classes", label: "Online Classes" },
+    { href: "/puzzle-arena", label: "Puzzle Arena" },
+    { href: "/tournaments", label: "Tournaments" },
+    { href: "/analysis", label: "Analysis Board" },
+  ]
+
   return (
-    <footer className="bg-[#2B2B2B] text-white">
-      <div className="container mx-auto px-4 sm:px-6 py-12 md:py-16">
-        {/* Grid Layout */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
+    <footer style={{ backgroundColor: navy }} className="text-white border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           
-          {/* Company Info */}
-          <div className="col-span-2 sm:col-span-1 lg:col-span-1 space-y-6 flex flex-col items-center sm:items-start">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#C9A227] rounded-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-bold text-xl">♔</span>
+          {/* Column 1: Brand Identity */}
+          <div className="space-y-6 flex flex-col items-start">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="h-12 w-12 bg-white rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12 duration-300">
+                <img src="/logo.png" alt="ACA Logo" className="h-10 w-10 object-contain rounded-lg" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-[#C9A227]">Genius Chess</h3>
-                <p className="text-sm opacity-70">Academy (International School of Chess)</p>
+              <div className="flex flex-col">
+                <span className="text-xl font-black tracking-tighter leading-none">
+                  AMRITSAR {" "}<span style={{ color: orange }}>CHESS</span>
+                </span>
+                <span className="text-[10px] font-bold text-white/50 tracking-[0.2em] uppercase">Club</span>
               </div>
-            </div>
-            <p className="text-white/80 leading-relaxed max-w-xs mx-auto sm:mx-0 text-sm">
-              Transform your chess game with personalized coaching from a Grandmaster.
+            </Link>
+            
+            <p className="text-white/60 text-sm leading-relaxed max-w-xs font-medium">
+              Amritsar's premier chess institution dedicated to building brilliant minds through FIDE-standard training and grandmaster mentorship.
             </p>
-            <div className="flex space-x-4">
-              <Link href="https://www.facebook.com/share/1CrebozWXz/" className="text-white/80 hover:text-[#C9A227] transition-colors">
-              <Button size="icon" variant="outline" className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white bg-transparent rounded-full">
-                <Facebook className="w-4 h-4" />
-              </Button>
-              </Link>
-              <Link href="https://www.instagram.com/geniuschessacademy2025?utm_source=qr&igsh=MWJybzBnejRwN3VyMw==" className="text-white/80 hover:text-[#C9A227] transition-colors">
-              <Button size="icon" variant="outline" className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white bg-transparent rounded-full">
-                <Instagram className="w-4 h-4" />
-              </Button>
-              </Link>
-              <Link href="https://youtube.com/@geniuschessacademy?si=ejNj6kL3k9asYnBK" className="text-white/80 hover:text-[#C9A227] transition-colors">
-              <Button size="icon" variant="outline" className="border-[#C9A227] text-[#C9A227] hover:bg-[#C9A227] hover:text-white bg-transparent rounded-full">
-                <Youtube className="w-4 h-4" />
-              </Button>
-              </Link>
+
+            {/* Social Media Buttons */}
+            <div className="flex items-center gap-3">
+              {[
+                { icon: Facebook, href: "https://facebook.com/..." },
+                { icon: Instagram, href: "https://instagram.com/..." },
+                { icon: Youtube, href: "https://youtube.com/..." },
+              ].map((social, i) => (
+                <Link key={i} href={social.href}>
+                  <Button 
+                    size="icon" 
+                    variant="outline" 
+                    className="border-white/10 text-white hover:bg-[#FF6B00] hover:text-white hover:border-[#FF6B00] bg-white/5 rounded-xl transition-all"
+                  >
+                    <social.icon className="w-4 h-4" />
+                  </Button>
+                </Link>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-base sm:text-lg font-semibold text-[#C9A227] mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              {[
-                { href: "/", label: "Home" },
-                { href: "/about", label: "About Us" },
-                { href: "/classes", label: "Classes" },
-                { href: "/gallery", label: "Gallery" },
-                { href: "/success-stories", label: "Success Stories" },
-                { href: "/contact", label: "Contact" },
-              ].map((link) => (
+          {/* Column 2: Quick Links */}
+          <div className="lg:pl-8">
+            <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8" style={{ color: orange }}>Quick Links</h4>
+            <ul className="space-y-4">
+              {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-white/80 hover:text-[#C9A227] transition-colors">
+                  <Link href={link.href} className="text-white/60 hover:text-white flex items-center gap-2 group transition-all text-sm font-bold">
+                    <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" style={{ color: orange }} />
                     {link.label}
                   </Link>
                 </li>
@@ -65,65 +84,83 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Programs */}
-          <div>
-            <h4 className="text-base sm:text-lg font-semibold text-[#C9A227] mb-4">Programs</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/classes" className="text-white/80 hover:text-[#C9A227] transition-colors">Beginner Classes</Link></li>
-              <li><Link href="/classes" className="text-white/80 hover:text-[#C9A227] transition-colors">Intermediate</Link></li>
-              <li><Link href="/classes" className="text-white/80 hover:text-[#C9A227] transition-colors">Advanced Coaching</Link></li>
-              <li><Link href="/classes" className="text-white/80 hover:text-[#C9A227] transition-colors">Tournament Prep</Link></li>
+          {/* Column 3: Advanced Programs */}
+          <div className="lg:pl-8">
+            <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8" style={{ color: orange }}>Arena & Learning</h4>
+            <ul className="space-y-4">
+              {programs.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/60 hover:text-white flex items-center gap-2 group transition-all text-sm font-bold">
+                    <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" style={{ color: orange }} />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div className="col-span-2 sm:col-span-1 lg:col-span-1">
-            <h4 className="text-base sm:text-lg font-semibold text-[#C9A227] mb-4">Contact Info</h4>
-            <div className="space-y-4 text-sm">
-              <div className="flex items-start justify-center sm:justify-start space-x-3">
-                <MapPin className="w-4 h-4 text-[#C9A227] mt-1 flex-shrink-0" />
-                <div><p className="text-white/80">Ghanta ghar, barisadri, dist. chittorgarh Raj 312403</p></div>
+          {/* Column 4: Contact Information */}
+          <div className="space-y-6">
+            <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8" style={{ color: orange }}>Reach Out</h4>
+            <div className="space-y-5 text-sm font-bold">
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-white/5">
+                   <MapPin className="w-4 h-4" style={{ color: orange }} />
+                </div>
+                <p className="text-white/60 leading-relaxed">
+                  Elite Training Wing, Main Market Road,<br /> Amritsar, Punjab - 143001
+                </p>
               </div>
-              <div className="flex items-center justify-center sm:justify-start space-x-3">
-                <Phone className="w-4 h-4 text-[#C9A227]" />
-                <p className="text-white/80">+91-9636809800, +91-9636790801</p>
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-white/5">
+                  <Phone className="w-4 h-4" style={{ color: orange }} />
+                </div>
+                <p className="text-white/60">+91-9988775581</p>
               </div>
-              <div className="flex items-center justify-center sm:justify-start space-x-3">
-                <Mail className="w-4 h-4 text-[#C9A227]" />
-                <p className="text-white/80 break-all">Geniuschessacademy12@gmail.com</p>
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-white/5">
+                  <Mail className="w-4 h-4" style={{ color: orange }} />
+                </div>
+                <p className="text-white/60 break-all">info@amritsarchessclub.com</p>
               </div>
-              <Button asChild className="bg-[#25D366] hover:bg-[#20B858] text-white w-full max-w-xs mx-auto sm:max-w-none sm:mx-0">
-                <a href="https://wa.me/919636809800?text=Hello%20Genius%20Chess%20Academy!" target="_blank" rel="noopener noreferrer">
+              
+              <Link href="https://wa.me/919988775581" className="block pt-2">
+                <Button className="w-full bg-[#25D366] hover:bg-[#20B858] text-white font-black rounded-xl py-6 shadow-xl shadow-[#25D366]/20">
                   <MessageCircle className="w-4 h-4 mr-2" />
-                  WhatsApp Us
-                </a>
-              </Button>
+                  WHATSAPP US
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Copyright & Credits */}
-        <div className="border-t border-white/20 mt-12 pt-8 text-center">
-          <p className="text-white/60 text-xs sm:text-sm mb-3">
-            © 2025 Genius Chess Academy (International School of Chess). All rights reserved.
-            <span className="hidden sm:inline"> |</span>
-            <br className="sm:hidden" />
-            <Link href="/privacy" className="hover:text-[#C9A227] sm:ml-1">Privacy Policy</Link> |
-            <Link href="/terms" className="hover:text-[#C9A227] ml-1">Terms of Service</Link>
-          </p>
-          
-          {/* DESIGNED BY JINESH MEHTA - WhatsApp Link */}
-          <p className="text-white/40 text-xs">
-            Designed by{" "}
-            <a 
-              href="https://wa.me/917851988964?text=Hi%20Jinesh,%20I%20saw%20your%20work%20on%20Genius%20Chess%20Academy" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-[#C9A227] font-medium hover:underline hover:text-[#e0b835] transition-colors"
-            >
-              Jinesh Mehta
-            </a>
-          </p>
+        {/* Footer Bottom: Copyright and Credits */}
+        <div className="mt-20 pt-8 border-t border-white/5">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <p className="text-white/40 text-[11px] font-bold tracking-wider uppercase">
+              © 2026 Amritsar Chess Club. All rights reserved.
+            </p>
+            
+            <div className="flex items-center gap-6">
+               <Link href="/privacy" className="text-white/40 hover:text-white text-[11px] font-bold transition-colors">Privacy</Link>
+               <Link href="/terms" className="text-white/40 hover:text-white text-[11px] font-bold transition-colors">Terms</Link>
+               
+               {/* CREDIT: JINESH MEHTA */}
+               <div className="h-4 w-px bg-white/10 hidden md:block" />
+               <p className="text-white/40 text-[11px] font-bold">
+                Designed by{" "}
+                <a 
+                  href="https://wa.me/917851988964" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                  style={{ color: orange }}
+                >
+                  Jinesh Mehta
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

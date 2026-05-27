@@ -91,7 +91,7 @@ export default function BookDemoPage() {
   const benefits = [
     {
       icon: Trophy,
-      title: "Meet Kamlesh Choudhary",
+      title: "Meet Our Top Coaches",
       description: "Personal introduction from our founder and master instructor",
       gradient: "from-purple-500 to-blue-500",
     },
@@ -129,7 +129,7 @@ export default function BookDemoPage() {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Experience Kamlesh Choudhary's revolutionary teaching methodology firsthand. Get personalized guidance, skill
+            Experience Our revolutionary teaching methodology firsthand. Get personalized guidance, skill
             assessment, and a customized learning plan - absolutely free!
           </p>
 
@@ -335,7 +335,7 @@ export default function BookDemoPage() {
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">What to Expect</h3>
                   <div className="space-y-4">
                     {[
-                      { icon: Users, text: "Personal meeting with Kamlesh Choudhary" },
+                      { icon: Users, text: "Personal meeting with our top coaches" },
                       { icon: Target, text: "Comprehensive skill assessment" },
                       { icon: BookOpen, text: "Sample lesson with our methodology" },
                       { icon: Trophy, text: "Customized learning roadmap" },
@@ -361,7 +361,7 @@ export default function BookDemoPage() {
                     ))}
                   </div>
                   <p className="text-gray-700 italic mb-4">
-                    "The demo class was incredible! Kamlesh sir immediately identified my daughter's strengths and gave
+                    "The demo class was incredible! Our top coaches immediately identified my daughter's strengths and gave
                     us a clear path forward. She's been excited about chess ever since!"
                   </p>
                   <div className="flex items-center space-x-3">
@@ -393,7 +393,7 @@ export default function BookDemoPage() {
               </span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              See what students achieve after their demo class with Kamlesh Choudhary
+              See what students achieve after their demo class with our top coaches
             </p>
           </div>
 
@@ -434,7 +434,7 @@ export default function BookDemoPage() {
           </h2>
           <p className="text-lg sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             Limited demo slots available each week. Secure your spot and start your chess transformation journey with
-            Kamlesh Choudhary's proven methodology.
+            Our proven methodology.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <Button
@@ -448,7 +448,7 @@ export default function BookDemoPage() {
               variant="outline"
               className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full bg-transparent transition-all duration-300"
             >
-              Call: +91-9636809800, +91-9636790801
+              Call: +91-9988775581
             </Button>
           </div>
         </div>

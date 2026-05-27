@@ -55,7 +55,7 @@ export function AchievementShowcase() {
           <div className="inline-flex items-center gap-2 bg-white border border-amber-200 px-6 py-2 rounded-full mb-6 shadow-md">
             <Trophy className="w-5 h-5 text-amber-600" />
             <span className="font-bold text-amber-800 uppercase tracking-wide text-xs sm:text-sm">
-              Genius Chess Academy Pride
+              Amritsar Chess Club Pride
             </span>
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-4">
@@ -120,7 +120,7 @@ export function AchievementShowcase() {
                   </div>
 
                   <p className="text-gray-500 text-sm italic border-t pt-4">
-                    "A shining example of dedication and strategic brilliance at Genius Chess Academy."
+                    "A shining example of dedication and strategic brilliance at Amritsar Chess Club."
                   </p>
                 </CardContent>
               </Card>
@@ -154,7 +154,7 @@ export function AchievementShowcase() {
                     </span>
                   </div>
                   <p className="text-gray-600">
-                    Securing the top position representing India against the best young minds in Asia. A historic win for the academy!
+                    Securing the top position representing India against the best young minds in Asia. A historic win for the club!
                   </p>
                 </div>
               </div>

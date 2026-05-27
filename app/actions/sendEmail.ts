@@ -10,8 +10,8 @@ export async function sendContactEmail(formData: any) {
     const { name, email, phone, age, experience, program, message } = formData;
 
     const { data, error } = await resend.emails.send({
-      from: "Genius Chess Academy <onboarding@resend.dev>",
-      to: ["Geniuschessacademy12@gmail.com"],
+      from: "Amritsar Chess Club <onboarding@resend.dev>",
+      to: ["Amritsarchessclub12@gmail.com"],
       subject: `New Contact Inquiry: ${name}`,
       replyTo: email,
       html: `
@@ -39,8 +39,8 @@ export async function sendDemoBookingEmail(formData: any) {
     const { studentName, parentName, email, phone, age, experience } = formData;
 
     const { data, error } = await resend.emails.send({
-      from: "Genius Chess Academy <onboarding@resend.dev>",
-      to: ["Geniuschessacademy12@gmail.com"],
+      from: "Amritsar Chess Club <onboarding@resend.dev>",
+      to: ["Amritsarchessclub12@gmail.com"],
       subject: `FREE DEMO BOOKED: ${studentName}`,
       replyTo: email,
       html: `

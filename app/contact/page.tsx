@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import { motion } from "framer-motion"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -9,9 +10,14 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Link from "next/link"
-import { MapPin, Phone, Mail, Clock, MessageCircle, Send, Award, Users, Trophy } from "lucide-react"
+import { MapPin, Phone, Mail, MessageCircle, Send, Award, Users, Trophy, Sparkles } from "lucide-react"
 
-import { sendContactEmail } from "@/app/actions/sendEmail" // Import the action
+import { sendContactEmail } from "@/app/actions/sendEmail"
+import ContactHero from "@/components/contactBanner"
+import FAQSection from "@/components/faq"
+
+const navy = "#12123D"
+const orange = "#FF6B00"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -31,360 +37,232 @@ export default function ContactPage() {
     setIsSubmitting(true)
     setSubmitStatus(null)
 
-    // Call the Server Action
     const result = await sendContactEmail(formData)
 
     if (result.success) {
       setSubmitStatus("success")
       setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        age: "",
-        experience: "",
-        program: "",
-        message: "",
+        name: "", email: "", phone: "", age: "", experience: "", program: "", message: "",
       })
     } else {
-      console.error("Resend Error:", result.error)
       setSubmitStatus("error")
     }
-    
     setIsSubmitting(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white font-sans selection:bg-orange-100 selection:text-orange-600">
       <Navbar />
+      <ContactHero />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 md:pt-32 md:pb-20 bg-gradient-to-br from-white via-purple-50/30 to-blue-50/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
-            Contact{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Us</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Ready to start your chess journey with Kamlesh Choudhary's proven methodology? Get in touch with us today!
-          </p>
-
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
-              <CardContent className="p-6 text-center">
-                <Award className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-4 text-purple-600" />
-                <div className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                  13+
-                </div>
-                <div className="text-gray-600 font-semibold text-sm sm:text-base">Years of Excellence</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
-              <CardContent className="p-6 text-center">
-                <Users className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-4 text-orange-600" />
-                <div className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent mb-2">
-                  1500+
-                </div>
-                <div className="text-gray-600 font-semibold text-sm sm:text-base">Happy Students</div>
-              </CardContent>
-            </Card>
-            <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-0">
-              <CardContent className="p-6 text-center">
-                <Trophy className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-4 text-green-600" />
-                <div className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent mb-2">
-                  50+
-                </div>
-                <div className="text-gray-600 font-semibold text-sm sm:text-base">Champions Created</div>
-              </CardContent>
-            </Card>
-          </div>
+      {/* STATS STRIP - High Impact */}
+      <section className="relative -mt-16 z-20 px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { icon: Award, val: "14+", label: "Years of Mastery", color: navy },
+            { icon: Users, val: "1500+", label: "Strategic Minds Trained", color: orange },
+            { icon: Trophy, val: "50+", label: "National Champions", color: navy },
+          ].map((stat, i) => (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              key={i}
+              className="bg-white p-8 rounded-[2rem] shadow-xl flex items-center gap-6 border-b-[6px]"
+              style={{ borderBottomColor: stat.color }}
+            >
+              <div className="p-4 rounded-2xl bg-slate-50">
+                <stat.icon size={32} style={{ color: stat.color }} />
+              </div>
+              <div>
+                <div className="text-3xl font-black" style={{ color: navy }}>{stat.val}</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{stat.label}</div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Contact Form */}
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-black text-gray-800 mb-8">
-                Send us a{" "}
-                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  Message
-                </span>
-              </h2>
-              <Card className="shadow-2xl border-0 bg-gradient-to-br from-white to-purple-50/30">
-                <CardContent className="p-6 sm:p-10">
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-bold text-gray-800 mb-2">
-                          Full Name *
-                        </label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="border-2 border-gray-200 focus:border-purple-600 focus:ring-purple-600 rounded-xl py-3 px-4 text-base"
-                          placeholder="Enter your full name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-bold text-gray-800 mb-2">
-                          Email Address *
-                        </label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="border-2 border-gray-200 focus:border-purple-600 focus:ring-purple-600 rounded-xl py-3 px-4 text-base"
-                          placeholder="Enter your email"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-bold text-gray-800 mb-2">
-                          Phone Number *
-                        </label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className="border-2 border-gray-200 focus:border-purple-600 focus:ring-purple-600 rounded-xl py-3 px-4 text-base"
-                          placeholder="Enter your phone number"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="age" className="block text-sm font-bold text-gray-800 mb-2">
-                          Age (Student)
-                        </label>
-                        <Input
-                          id="age"
-                          name="age"
-                          type="number"
-                          value={formData.age}
-                          onChange={handleChange}
-                          className="border-2 border-gray-200 focus:border-purple-600 focus:ring-purple-600 rounded-xl py-3 px-4 text-base"
-                          placeholder="Student's age"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="experience" className="block text-sm font-bold text-gray-800 mb-2">
-                          Chess Experience
-                        </label>
-                        <select
-                          id="experience"
-                          name="experience"
-                          value={formData.experience}
-                          onChange={handleChange}
-                          className="w-full border-2 border-gray-200 focus:border-purple-600 focus:ring-purple-600 rounded-xl py-3 px-4 text-base bg-white"
-                        >
-                          <option value="">Select experience level</option>
-                          <option value="complete-beginner">Complete Beginner</option>
-                          <option value="some-knowledge">Some Knowledge</option>
-                          <option value="intermediate">Intermediate</option>
-                          <option value="advanced">Advanced</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="program" className="block text-sm font-bold text-gray-800 mb-2">
-                          Interested Program
-                        </label>
-                        <select
-                          id="program"
-                          name="program"
-                          value={formData.program}
-                          onChange={handleChange}
-                          className="w-full border-2 border-gray-200 focus:border-purple-600 focus:ring-purple-600 rounded-xl py-3 px-4 text-base bg-white"
-                        >
-                          <option value="">Select a program</option>
-                          <option value="chess-foundations">Chess Foundations</option>
-                          <option value="strategic-mastery">Strategic Mastery</option>
-                          <option value="grandmaster-path">Grandmaster Path</option>
-                          <option value="tournament-warrior">Tournament Warrior</option>
-                          <option value="private-coaching">Private Coaching</option>
-                          <option value="family-program">Family Chess Program</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-bold text-gray-800 mb-2">
-                        Message *
-                      </label>
-                      <Textarea
-                        id="message"
-                        required
-                        rows={5}
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        className="border-2 border-gray-200 focus:border-purple-600 focus:ring-purple-600 rounded-xl py-3 px-4 text-base"
-                        placeholder="Tell us about your chess goals..."
-                      />
-                    </div>
-
-                    {submitStatus === "success" && (
-                      <p className="text-green-600 font-semibold">Form submitted successfully!</p>
-                    )}
-                    {submitStatus === "error" && (
-                      <p className="text-red-600 font-semibold">Error submitting form. Please try again.</p>
-                    )}
-
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 text-lg rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-                    >
-                      <Send className="w-5 h-5 mr-2" />
-                      {isSubmitting ? "Submitting..." : "Send Message & Book Demo"}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
+      {/* MAIN CONTACT SECTION */}
+      <section className="py-24 md:py-32 bg-white px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            {/* LEFT: INFO COLUMN */}
+            <div className="lg:col-span-5 space-y-12">
               <div>
-                <h2 className="text-3xl sm:text-4xl font-black text-gray-800 mb-8">
-                  Get in{" "}
-                  <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                    Touch
-                  </span>
+                <div className="flex items-center gap-2 mb-4">
+                  <Sparkles size={18} style={{ color: orange }} />
+                  <span className="text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: orange }}>Connect with Us</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight" style={{ color: navy }}>
+                  Let’s Discuss Your <br /> <span style={{ color: orange }}>Next Move.</span>
                 </h2>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                  We're here to answer your questions and help you start your chess journey. Reach out to us through any of the methods below.
+                <p className="mt-6 text-slate-500 font-medium text-lg leading-relaxed">
+                  Have questions about our FIDE-certified curriculum or weekend batches? 
+                  Our team is ready to guide you towards strategic excellence.
                 </p>
               </div>
 
               <div className="space-y-6">
-                <Card className="shadow-xl border-0 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                  <CardContent className="p-6 sm:p-8">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <MapPin className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-black text-gray-800 mb-2">Visit Us</h3>
-                        <p className="text-gray-600 leading-relaxed">
-                          Ghanta ghar, barisadri, dist. chittorgarh Raj 312403
-                        </p>
-                      </div>
+                {[
+                  { icon: MapPin, title: "Our Club", detail: "Golden City Center, Mall Road, Amritsar, Punjab 143001", color: navy },
+                  { icon: Phone, title: "Call/WhatsApp", detail: "+91 99887 75581", color: orange },
+                  { icon: Mail, title: "Email Address", detail: "contact@amritsarchess.com", color: navy },
+                ].map((item, i) => (
+                  <motion.div 
+                    whileHover={{ x: 10 }}
+                    key={i} 
+                    className="flex items-start gap-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-100 transition-all"
+                  >
+                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 text-white shadow-lg" style={{ backgroundColor: item.color }}>
+                      <item.icon size={20} />
                     </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="shadow-xl border-0 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                  <CardContent className="p-6 sm:p-8">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <Phone className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-black text-gray-800 mb-2">Call Us</h3>
-                        <p className="text-gray-600 leading-relaxed">
-                          +91-9636809800, +91-9636790801
-                        </p>
-                      </div>
+                    <div>
+                      <h4 className="text-xs font-black uppercase tracking-widest mb-1 text-slate-400">{item.title}</h4>
+                      <p className="text-lg font-bold" style={{ color: navy }}>{item.detail}</p>
                     </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="shadow-xl border-0 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                  <CardContent className="p-6 sm:p-8">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                        <Mail className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-black text-gray-800 mb-2">Email Us</h3>
-                        <p className="text-gray-600 leading-relaxed break-all">
-                          Geniuschessacademy12@gmail.com
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                  </motion.div>
+                ))}
               </div>
+            </div>
+
+            {/* RIGHT: FORM COLUMN */}
+            <div className="lg:col-span-7">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 relative overflow-hidden"
+              >
+                {/* Decorative Background Icon */}
+                <Trophy className="absolute -bottom-10 -right-10 text-slate-50 -z-0" size={240} />
+                
+                <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Full Name</label>
+                      <Input
+                        name="name" required value={formData.name} onChange={handleChange}
+                        className="bg-slate-50 border-none h-14 rounded-2xl px-6 focus-visible:ring-2 focus-visible:ring-orange-500 font-bold"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Email</label>
+                      <Input
+                        name="email" type="email" required value={formData.email} onChange={handleChange}
+                        className="bg-slate-50 border-none h-14 rounded-2xl px-6 focus-visible:ring-2 focus-visible:ring-orange-500 font-bold"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">WhatsApp Number</label>
+                      <Input
+                        name="phone" required value={formData.phone} onChange={handleChange}
+                        className="bg-slate-50 border-none h-14 rounded-2xl px-6 focus-visible:ring-2 focus-visible:ring-orange-500 font-bold"
+                        placeholder="+91 00000 00000"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Interested Program</label>
+                      <select
+                        name="program" value={formData.program} onChange={handleChange}
+                        className="w-full bg-slate-50 border-none h-14 rounded-2xl px-6 focus:ring-2 focus:ring-orange-500 font-bold text-sm appearance-none cursor-pointer"
+                      >
+                        <option value="">Select a program</option>
+                        <option value="beginner">Chess Foundations</option>
+                        <option value="intermediate">Strategic Mastery</option>
+                        <option value="advanced">Grandmaster Path</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Message</label>
+                    <Textarea
+                      name="message" required rows={4} value={formData.message} onChange={handleChange}
+                      className="bg-slate-50 border-none rounded-[1.5rem] p-6 focus-visible:ring-2 focus-visible:ring-orange-500 font-bold"
+                      placeholder="How can we help you master the board?"
+                    />
+                  </div>
+
+                  {submitStatus === "success" && (
+                    <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="p-4 bg-green-50 text-green-700 rounded-2xl text-sm font-bold text-center">
+                      ✓ Thank you! We will reach out to you shortly.
+                    </motion.div>
+                  )}
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full h-16 rounded-full text-white font-black uppercase tracking-widest shadow-xl hover:scale-[1.02] transition-transform"
+                    style={{ backgroundColor: orange }}
+                  >
+                    {isSubmitting ? "Sending Move..." : "Send Message & Book Demo"}
+                    <Send className="ml-3 w-4 h-4" />
+                  </Button>
+                </form>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-<section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-purple-50/30">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6">
-    <div className="text-center mb-12 md:mb-16">
-      <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6">
-        Find{" "}
-        <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Us</span>
-      </h2>
-      <p className="text-lg sm:text-xl text-gray-600">
-        Located in the heart of Chittorgarh, easily accessible by public transport
-      </p>
-    </div>
-    <Card className="shadow-2xl border-0 overflow-hidden">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3633.0717011787947!2d74.46891207513704!3d24.4135764782237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396646e61789b2ad%3A0x4901695dfda6ee64!2zQ2xvY2sgVG93ZXIsIOCkmOCkguCkn-CkvuCkmOCksA!5e0!3m2!1sen!2sin!4v1757354300659!5m2!1sen!2sin"
-        width="100%"
-        height="450"
-        style={{ border: 0 }}
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        title="Location Map"
-      ></iframe>
-    </Card>
-  </div>
-</section>
-
-      {/* Final CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/chess-pattern.svg')] opacity-5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-8">
-            Ready to Begin Your{" "}
-            <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-              Chess Journey?
-            </span>
-          </h2>
-          <p className="text-lg sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Don't wait! Contact us today and take the first step towards chess mastery.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <Link href = "/book-demo">
-            <Button className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
-              Book Your FREE Demo Class
-            </Button>
-            </Link>
-            <Button
-              variant="outline"
-              className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full bg-transparent transition-all duration-300"
-            >
-              Call Now: +91-9636809800
-            </Button>
+      {/* MAP SECTION - Clean & Integrated */}
+      <section className="pb-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+             <div className="max-w-xl text-left">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter" style={{ color: navy }}>
+                   Visit the <span style={{ color: orange }}>Arena.</span>
+                </h2>
+                <p className="text-slate-500 font-medium mt-4">
+                  Located in the cultural heart of Amritsar, our club is easily accessible and designed to inspire strategic thinking.
+                </p>
+             </div>
+             <Link href="https://maps.google.com" target="_blank">
+                <Button variant="outline" className="rounded-full px-8 py-6 border-slate-200 font-black uppercase tracking-widest text-[10px]">
+                   Open in Google Maps
+                </Button>
+             </Link>
           </div>
+          <div className="rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-slate-50 h-[500px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.6575000000003!2d74.87226!3d31.63398!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM4JzAyLjMiTiA3NMKwNTInMjAuMSJF!5e0!3m2!1sen!2sin!4v1625573456789!5m2!1sen!2sin"
+              width="100%" height="100%" style={{ border: 0 }} loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+      <FAQSection/>
+
+      {/* FINAL CTA - Navy/Orange Theme */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto bg-[#12123D] rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl border-b-[12px] border-orange-500">
+           <img src="/king1.png" className="absolute -bottom-10 -left-10 w-64 opacity-10 pointer-events-none" />
+           <h2 className="text-3xl md:text-5xl font-black text-white mb-8 tracking-tighter">
+            Ready to make your <span style={{ color: orange }}>next move?</span>
+           </h2>
+           <p className="text-slate-400 font-medium mb-12 max-w-2xl mx-auto">
+             Join Amritsar's premier chess club and start building your own gallery of victories. 
+           </p>
+           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+              <Link href="https://wa.me/919988775581">
+                <button className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all hover:scale-105 shadow-lg">
+                  Book Free Demo
+                </button>
+              </Link>
+              <Button variant="outline" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-[11px] transition-all border border-white/20">
+                Call: +91 99887 75581
+              </Button>
+           </div>
         </div>
       </section>
 

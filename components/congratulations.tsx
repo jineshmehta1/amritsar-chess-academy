@@ -109,14 +109,14 @@ export default function FMAwardSection() {
               </div>
             </div>
 
-            {/* Academy Branding */}
+            {/* Club Branding */}
             <div className="bg-orange-500 rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 text-white shadow-xl shadow-orange-100 text-left">
               <div className="flex items-center gap-3 mb-2">
                 <GraduationCap size={24} className="shrink-0" />
                 <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest opacity-80">Proudly Trained At</p>
               </div>
               <h4 className="text-lg md:text-xl font-black uppercase leading-tight">
-                Genius Chess Academy
+                Amritsar Chess Club
               </h4>
               <p className="text-xs md:text-sm font-bold opacity-90 leading-tight mt-1">
                 International School of Chess <br />

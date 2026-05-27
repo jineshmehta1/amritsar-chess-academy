@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://www.thegeniuschessacademy.com/sitemap.xml',
+    sitemap: 'https://www.theamritsarchessclub.com/sitemap.xml',
   };
 }

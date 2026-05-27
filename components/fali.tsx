@@ -31,7 +31,7 @@ export default function MinisterFelicitation() {
     },
     { 
       src: "/program4.jpeg", // Replace with your actual path
-      alt: "Academy Pride", 
+      alt: "Club Pride", 
       className: "col-span-1 row-span-1" 
     },
     { 
@@ -154,7 +154,7 @@ export default function MinisterFelicitation() {
             </div>
             <div className="text-center md:text-left">
               <h3 className="text-2xl md:text-3xl font-bold mb-2">Inspired by Excellence?</h3>
-              <p className="text-slate-400 max-w-md">Begin your journey at the academy where champions are nurtured and recognized by the nation.</p>
+              <p className="text-slate-400 max-w-md">Begin your journey at the club where champions are nurtured and recognized by the nation.</p>
             </div>
           </div>
           <Button className="bg-white text-slate-900 hover:bg-blue-50 px-8 h-14 rounded-full font-bold text-lg group relative z-10 shadow-xl">
