@@ -3,8 +3,7 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
-  Calendar, Clock, ChevronRight, Search, 
-  BookOpen, Brain, Trophy, Users, Star, ArrowRight
+  Calendar, Clock, ArrowRight 
 } from "lucide-react"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
@@ -112,13 +111,13 @@ export default function BlogListing() {
       <BlogHero/>
 
       {/* CATEGORY FILTER */}
-      <section className="py-12 bg-slate-50 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-4">
+      <section className="py-8 md:py-12 bg-slate-50 border-b border-slate-200 sticky top-[64px] z-30">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 flex flex-wrap justify-center gap-2 md:gap-4">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-8 py-3 rounded-full text-[11px] font-black uppercase tracking-widest transition-all duration-300 ${
+              className={`px-5 md:px-8 py-2 md:py-3 rounded-full text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-300 ${
                 activeFilter === cat 
                   ? "text-white shadow-xl scale-105" 
                   : "bg-white text-slate-500 border border-slate-200 hover:border-orange-500"
@@ -132,53 +131,60 @@ export default function BlogListing() {
       </section>
 
       {/* BLOG GRID */}
-      <section className="py-24 px-6">
+      <section className="py-16 md:py-24 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             <AnimatePresence mode="popLayout">
               {filteredPosts.map((post, i) => (
                 <motion.div
                   key={post.id}
                   layout
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ delay: i * 0.05 }}
-                  className="group flex flex-col bg-white rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 overflow-hidden"
+                  className="group flex flex-col bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 overflow-hidden"
                   style={{ borderBottom: `6px solid ${i % 2 === 0 ? orange : navy}` }}
                 >
-                  <Link href={`/blog/${post.id}`} className="relative h-64 overflow-hidden">
+                  <Link href={`/blog/${post.id}`} className="relative h-48 md:h-64 overflow-hidden">
                     <img 
                       src={post.image} 
                       alt={post.title} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                     />
-                    <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-[#12123D]">
+                    <div className="absolute top-4 md:top-6 left-4 md:left-6 bg-white/90 backdrop-blur-md px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-widest text-[#12123D]">
                       {post.category}
                     </div>
                   </Link>
 
-                  <div className="p-10 flex flex-col flex-grow">
-                    <div className="flex items-center gap-4 text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-4">
-                      <div className="flex items-center gap-1.5"><Calendar size={14} /> {post.date}</div>
-                      <div className="flex items-center gap-1.5"><Clock size={14} /> {post.readTime}</div>
+                  <div className="p-6 md:p-10 flex flex-col flex-grow">
+                    <div className="flex items-center gap-3 md:gap-4 text-slate-400 text-[8px] md:text-[10px] font-bold uppercase tracking-widest mb-4">
+                      <div className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5" /> 
+                        {post.date}
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" /> 
+                        {post.readTime}
+                      </div>
                     </div>
 
                     <Link href={`/blog/${post.id}`}>
-                      <h3 className="text-2xl font-black text-[#12123D] leading-tight mb-4 group-hover:text-orange-600 transition-colors">
+                      <h3 className="text-xl md:text-2xl font-black text-[#12123D] leading-tight mb-4 group-hover:text-orange-600 transition-colors">
                         {post.title}
                       </h3>
                     </Link>
 
-                    <p className="text-slate-500 font-medium text-sm leading-relaxed mb-8 line-clamp-3">
+                    <p className="text-slate-500 font-medium text-xs md:text-sm leading-relaxed mb-6 md:mb-8 line-clamp-3">
                       {post.excerpt}
                     </p>
 
-                    <div className="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
-                      <div className="text-[10px] font-black uppercase text-slate-400">By {post.author}</div>
+                    <div className="mt-auto pt-4 md:pt-6 border-t border-slate-100 flex items-center justify-between">
+                      <div className="text-[8px] md:text-[10px] font-black uppercase text-slate-400">By {post.author}</div>
                       <Link href={`/blog/${post.id}`} className="text-orange-500 flex items-center gap-2 group/btn">
-                        <span className="text-xs font-black uppercase tracking-widest">Read More</span>
-                        <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                        <span className="text-[10px] md:text-xs font-black uppercase tracking-widest">Read More</span>
+                        <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                       </Link>
                     </div>
                   </div>

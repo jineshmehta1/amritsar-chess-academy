@@ -42,16 +42,16 @@ export default function WhyParentsChooseUs() {
   const elitePurple = "#7C3AED"
 
   return (
-    <section className="py-24 bg-slate-50/50 px-4 sm:px-6 overflow-hidden">
+    <section className="py-16 md:py-24 bg-slate-50/50 px-4 sm:px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* SECTION HEADER */}
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1.5 mb-4 rounded-full bg-purple-50 border border-purple-100 text-[#7C3AED] text-[10px] font-black uppercase tracking-[0.2em]"
+            className="inline-block px-4 py-1.5 mb-4 rounded-full bg-purple-50 border border-purple-100 text-[#7C3AED] text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em]"
           >
             Club Excellence
           </motion.div>
@@ -60,15 +60,25 @@ export default function WhyParentsChooseUs() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-black mb-6 tracking-tighter leading-tight"
+            className="text-3xl md:text-5xl font-black mb-4 md:mb-6 tracking-tighter leading-tight px-2"
           >
-            <span style={{ color: navy }}>Why Parents Choose</span> {" "}
+            <span style={{ color: navy }}>Why Parents Choose</span>{" "}
+            <br className="hidden sm:block md:hidden" />
             <span style={{ color: orange }}> Amritsar Chess?</span>
           </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-slate-500 font-medium text-sm md:text-base max-w-2xl mx-auto px-4"
+          >
+            We provide a world-class foundation for young minds to excel both on and off the board.
+          </motion.p>
         </div>
 
-        {/* BALANCED GRID: 2 per row mobile, 3 per row desktop */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        {/* RESPONSIVE GRID: 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reasons.map((item, index) => (
             <motion.div
               key={index}
@@ -76,13 +86,13 @@ export default function WhyParentsChooseUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-[2.5rem] p-6 md:p-10 border border-slate-100 shadow-[0_10px_40px_rgba(18,18,61,0.03)] hover:shadow-[0_20px_50px_rgba(124,58,237,0.1)] transition-all duration-500 group flex flex-col items-center text-center"
+              className="bg-white rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 border border-slate-100 shadow-[0_10px_40px_rgba(18,18,61,0.03)] hover:shadow-[0_20px_50px_rgba(124,58,237,0.1)] transition-all duration-500 group flex flex-col items-center text-center"
             >
               {/* IMAGE BOX */}
-              <div className="relative w-full aspect-square max-w-[120px] md:max-w-[160px] mb-8">
-                {/* Decorative background circle inside card */}
+              <div className="relative w-full aspect-square max-w-[100px] sm:max-w-[120px] md:max-w-[160px] mb-6 md:mb-8">
+                {/* Decorative background circle */}
                 <div 
-                  className="absolute inset-0 rounded-full scale-90 opacity-20 group-hover:scale-110 transition-transform duration-700"
+                  className="absolute inset-0 rounded-full scale-90 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-700"
                   style={{ backgroundColor: elitePurple }}
                 />
                 <img 
@@ -92,22 +102,22 @@ export default function WhyParentsChooseUs() {
                 />
               </div>
 
-              {/* HEADING IN PURPLE */}
+              {/* HEADING */}
               <h3 
-                className="text-lg md:text-2xl font-black mb-4 tracking-tight"
+                className="text-xl md:text-2xl font-black mb-3 md:mb-4 tracking-tight"
                 style={{ color: elitePurple }}
               >
                 {item.title}
               </h3>
               
               {/* DESCRIPTION */}
-              <p className="text-slate-500 text-xs md:text-sm leading-relaxed font-medium">
+              <p className="text-slate-500 text-sm md:text-base leading-relaxed font-medium px-2">
                 {item.description}
               </p>
 
               {/* SUBTLE INDICATOR */}
               <div 
-                className="w-8 h-1 mt-6 rounded-full opacity-20 transition-all group-hover:w-16"
+                className="w-8 h-1 mt-6 rounded-full opacity-20 transition-all duration-500 group-hover:w-16 group-hover:opacity-100"
                 style={{ backgroundColor: elitePurple }}
               />
             </motion.div>

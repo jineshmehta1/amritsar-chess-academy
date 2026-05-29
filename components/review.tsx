@@ -40,23 +40,24 @@ export default function TestimonialSection() {
   const orange = "#FF6B00"
 
   return (
-    <section className="py-24 bg-slate-50/50 px-6 overflow-hidden relative">
-      {/* Background Decorative Quote Mark */}
-      <div className="absolute top-10 left-10 text-slate-100 -z-0 opacity-50">
-        <Quote size={300} fill="currentColor" />
+    <section className="py-16 md:py-24 bg-slate-50/50 px-4 md:px-6 overflow-hidden relative">
+      {/* Background Decorative Quote Mark - Fixed TS Error using className */}
+      <div className="absolute top-4 left-4 md:top-10 md:left-10 text-slate-100 -z-0 opacity-50">
+        <Quote className="w-32 h-32 md:w-[300px] md:h-[300px]" fill="currentColor" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* HEADER */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="flex items-center justify-center gap-2 mb-4"
           >
             <div className="h-1.5 w-1.5 rounded-full bg-orange-500" />
-            <span className="text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: orange }}>
+            <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: orange }}>
               Testimonials
             </span>
             <div className="h-1.5 w-1.5 rounded-full bg-orange-500" />
@@ -65,6 +66,7 @@ export default function TestimonialSection() {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="text-3xl md:text-5xl font-black tracking-tighter mb-4"
             style={{ color: navy }}
           >
@@ -74,18 +76,20 @@ export default function TestimonialSection() {
           <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-slate-500 font-medium max-w-2xl mx-auto"
+            viewport={{ once: true }}
+            className="text-slate-500 text-sm md:text-base font-medium max-w-2xl mx-auto px-4"
           >
             Real stories from real students and parents who are part of our journey of growth, learning and success.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-20">
           
-          {/* LEFT INTRO COLUMN */}
+          {/* LEFT INTRO COLUMN - Stays hidden on mobile/tablet per your original code */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             className="lg:col-span-3 hidden lg:flex flex-col"
           >
             <Quote size={60} style={{ color: orange }} className="mb-6" />
@@ -109,35 +113,36 @@ export default function TestimonialSection() {
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-[2.5rem] p-8 shadow-sm hover:shadow-2xl transition-all duration-500 relative flex flex-col group"
+                className="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-8 shadow-sm hover:shadow-2xl transition-all duration-500 relative flex flex-col group"
                 style={{ borderBottom: `6px solid ${item.accent}` }}
               >
-                {/* Top Row: Quote & Stars */}
-                <div className="flex justify-between items-start mb-8">
-                  <Quote size={32} style={{ color: item.accent }} className="opacity-80" />
+                {/* Top Row: Quote & Stars - Responsive sizes */}
+                <div className="flex justify-between items-start mb-6 md:mb-8">
+                  <Quote className="w-7 h-7 md:w-8 md:h-8 opacity-80" style={{ color: item.accent }} />
                   <div className="flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-full">
                     {[...Array(5)].map((_, s) => (
-                      <Star key={s} size={12} fill={orange} stroke={orange} />
+                      <Star key={s} className="w-2.5 h-2.5 md:w-3 md:h-3" fill={orange} stroke={orange} />
                     ))}
-                    <span className="text-[10px] font-bold text-slate-700 ml-1">5.0</span>
+                    <span className="text-[9px] md:text-[10px] font-bold text-slate-700 ml-1">5.0</span>
                   </div>
                 </div>
 
-                <p className="text-slate-600 font-medium leading-relaxed mb-8 flex-grow">
+                <p className="text-slate-600 text-sm md:text-base font-medium leading-relaxed mb-6 md:mb-8 flex-grow">
                   "{item.text}"
                 </p>
 
-                <div className="h-px w-full bg-slate-100 mb-8" />
+                <div className="h-px w-full bg-slate-100 mb-6 md:mb-8" />
 
                 {/* User Info */}
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm transition-transform group-hover:scale-110">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm transition-transform group-hover:scale-110">
                     <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
-                    <div className="font-black text-[#12123D]">{item.name}</div>
-                    <div className="text-[11px] font-bold" style={{ color: orange }}>{item.role}</div>
+                    <div className="font-black text-sm md:text-base text-[#12123D]">{item.name}</div>
+                    <div className="text-[10px] md:text-[11px] font-bold" style={{ color: orange }}>{item.role}</div>
                   </div>
                 </div>
 
@@ -151,7 +156,6 @@ export default function TestimonialSection() {
           </div>
         </div>
 
-        
       </div>
     </section>
   )
