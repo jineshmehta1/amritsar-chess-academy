@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Tournament {
+  id        String   @id @default(cuid())
+  name      String
+  status    String   @default("active") // active, completed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  players   Player[]
+  rounds    Round[]
+}
+
+model Player {
+  id           String     @id @default(cuid())
+  name         String
+  rating       Int
+  score        Float      @default(0)
+  buchholz     Float      @default(0)
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  
+  // Relations for pairings where this player is either p1 or p2
+  pairingsAsP1 Pairing[]  @relation("PlayerOne")
+  pairingsAsP2 Pairing[]  @relation("PlayerTwo")
+
+  createdAt    DateTime   @default(now())
+}
+
+model Round {
+  id           String     @id @default(cuid())
+  roundNumber  Int
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  pairings     Pairing[]
+  createdAt    DateTime   @default(now())
+
+  @@unique([tournamentId, roundNumber])
+}
+
+model Pairing {
+  id       String  @id @default(cuid())
+  roundId  String
+  round    Round   @relation(fields: [roundId], references: [id], onDelete: Cascade)
+
+  p1Id     String
+  p1       Player  @relation("PlayerOne", fields: [p1Id], references: [id])
+  
+  p2Id     String? // Nullable if the player got a bye
+  p2       Player? @relation("PlayerTwo", fields: [p2Id], references: [id])
+
+  result   String? // "1-0", "0-1", "0.5-0.5", or null for pending
+}

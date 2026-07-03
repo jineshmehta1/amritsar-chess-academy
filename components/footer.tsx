@@ -22,6 +22,7 @@ export function Footer() {
     { href: "/online-classes", label: "Online Classes" },
     { href: "/puzzle-arena", label: "Puzzle Arena" },
     { href: "/tournaments", label: "Tournaments" },
+    { href: "/results", label: "Tournament Results" },
     { href: "/analysis", label: "Analysis Board" },
   ]
 

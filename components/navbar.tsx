@@ -65,6 +65,12 @@ const navLinks = [
         icon: Trophy,
       },
       {
+        href: "/results",
+        label: "Tournament Results",
+        desc: "Live standings & pairings",
+        icon: Trophy,
+      },
+      {
         href: "/achievements",
         label: "Achievements",
         desc: "Student achievements",
