@@ -88,6 +88,12 @@ const navLinks = [
         icon: LayoutDashboard,
       },
       {
+        href: "/pairing",
+        label: "BBP Pairing",
+        desc: "Swiss pairing engine",
+        icon: Users,
+      },
+      {
         href: "/blog",
         label: "Chess Blog",
         desc: "Tips & strategies",
