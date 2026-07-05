@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { ExportRoundButton } from "@/components/export-round-button";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -160,8 +161,9 @@ async function TournamentSection({ data }: { data: any }) {
             ) : (
               data.rounds.map((round: any) => (
                 <Card key={round.id} className="border-slate-200 shadow-sm">
-                  <CardHeader className="border-b border-slate-100 bg-slate-50/80 pb-3">
+                  <CardHeader className="flex flex-row items-center justify-between border-b border-slate-100 bg-slate-50/80 pb-3 space-y-0">
                     <CardTitle className="text-base text-[#12123D]">Round {round.roundNumber}</CardTitle>
+                    <ExportRoundButton round={round} tournamentName={data.name} />
                   </CardHeader>
                   <CardContent className="pt-4 space-y-3">
                     {round.pairings.map((pairing: any) => {

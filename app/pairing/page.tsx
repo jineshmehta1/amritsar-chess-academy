@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Trophy, Users, Play, RotateCcw, Trash2, Plus, Download, Lock } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { ExportRoundButton } from "@/components/export-round-button";
 import { 
   verifyAdminPassword, 
   getTournaments, 
@@ -436,8 +437,9 @@ export default function PairingAdminPage() {
                   <div className="space-y-6 flex flex-col-reverse">
                     {tournamentData.rounds.map((round: any, rIndex: number) => (
                       <Card key={round.id} className="border-slate-200 shadow-sm animate-in slide-in-from-bottom-4 duration-300">
-                        <CardHeader className="bg-slate-50/80 border-b border-slate-100 pb-4">
+                        <CardHeader className="flex flex-row items-center justify-between bg-slate-50/80 border-b border-slate-100 pb-4 space-y-0">
                           <CardTitle className="text-[#12123D]">Round {round.roundNumber}</CardTitle>
+                          <ExportRoundButton round={round} tournamentName={tournamentData.name} />
                         </CardHeader>
                         <CardContent className="pt-6">
                           <div className="space-y-4">
