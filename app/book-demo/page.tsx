@@ -179,7 +179,7 @@ export default function BookDemoPage() {
                 </h2>
               </div>
 
-              <Card className="shadow-2xl border-0 bg-gradient-to-br from-white to-purple-50/30">
+              <Card id="demo-booking-form" className="shadow-2xl border-0 bg-gradient-to-br from-white to-purple-50/30">
                 <CardContent className="p-6 sm:p-10">
                   {error && (
                     <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl">
@@ -438,18 +438,20 @@ export default function BookDemoPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <Button
-              onClick={() => setFormData({ ...formData })}
+              onClick={() => document.getElementById('demo-booking-form')?.scrollIntoView({ behavior: 'smooth' })}
               className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
             >
               <Calendar className="w-6 h-6 mr-2" />
               Book FREE Demo Now
             </Button>
+            <a href="tel:+919592004076">
             <Button
               variant="outline"
               className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full bg-transparent transition-all duration-300"
             >
-              Call: +91-9988775581
+              Call: +91-9592004076
             </Button>
+            </a>
           </div>
         </div>
       </section>

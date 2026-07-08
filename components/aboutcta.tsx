@@ -4,11 +4,14 @@ import React from "react"
 import { motion } from "framer-motion"
 import { MessageCircle, Rocket, ArrowRight, Trophy } from "lucide-react"
 import Link from "next/link"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 const navy = "#12123D"
 const orange = "#FF6B00"
 
 export default function AboutCTA() {
+  const { openBookDemoModal } = useBookDemo()
+
   return (
     <section className="py-16 md:py-24 px-4 md:px-6 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto">
@@ -56,17 +59,18 @@ export default function AboutCTA() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-5">
-              <Link href="https://wa.me/919988775581" className="w-full sm:w-auto">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full px-8 md:px-10 py-4 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] md:text-xs flex items-center justify-center gap-3 transition-all shadow-xl text-white"
-                  style={{ backgroundColor: orange }}
-                >
-                  Book Free Demo Class
-                  <Rocket className="w-4 h-4 md:w-5 md:h-5" />
-                </motion.button>
-              </Link>
+              <div className="w-full sm:w-auto">
+              <motion.button
+                onClick={openBookDemoModal}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full px-8 md:px-10 py-4 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] md:text-xs flex items-center justify-center gap-3 transition-all shadow-xl text-white"
+                style={{ backgroundColor: orange }}
+              >
+                Book Free Demo Class
+                <Rocket className="w-4 h-4 md:w-5 md:h-5" />
+              </motion.button>
+              </div>
 
               <Link href="/contact" className="w-full sm:w-auto">
                 <motion.button

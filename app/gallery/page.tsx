@@ -7,11 +7,13 @@ import { X, Camera, Award, Users, Trophy, Quote, Search } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import GalleryHero from "@/components/galleryBanner"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 const navy = "#12123D"
 const orange = "#FF6B00"
 
 export default function GalleryPage() {
+  const { openBookDemoModal } = useBookDemo()
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [activeFilter, setActiveFilter] = useState("all")
 
@@ -70,7 +72,7 @@ export default function GalleryPage() {
       </section>
 
       {/* GALLERY HEADER */}
-      <section className="pt-24 pb-12 px-6 relative overflow-hidden">
+      <section id="gallery-grid" className="pt-24 pb-12 px-6 relative overflow-hidden">
         <div className="absolute top-20 right-10 text-slate-200/50 -z-0">
           <Quote size={200} fill="currentColor" className="rotate-180" />
         </div>
@@ -190,11 +192,9 @@ export default function GalleryPage() {
            </p>
 
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <Link href="https://wa.me/919988775581">
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-sm transition-all hover:scale-105 shadow-lg">
+              <button onClick={openBookDemoModal} className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-sm transition-all hover:scale-105 shadow-lg">
                   Book Free Demo
                 </button>
-              </Link>
               <Link href="/contact">
                 <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-sm transition-all border border-white/20">
                   Contact Coach

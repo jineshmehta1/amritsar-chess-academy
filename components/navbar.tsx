@@ -22,7 +22,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import BookDemoModal from "@/components/BookDemoModal"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -82,7 +82,7 @@ const navLinks = [
     label: "Resources",
     children: [
       {
-        href: "/puzzle-arena",
+        href: "/analysis",
         label: "Puzzle Arena",
         desc: "Daily chess tactics",
         icon: Brain,
@@ -112,7 +112,7 @@ const navLinks = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false)
+  const { openBookDemoModal } = useBookDemo()
 
   const pathname = usePathname()
 
@@ -247,7 +247,7 @@ export function Navbar() {
 
             {/* Modal Trigger Button */}
             <Button
-              onClick={() => setIsDemoModalOpen(true)}
+              onClick={openBookDemoModal}
               className={cn(
                 "bg-[#FF6B00] hover:bg-[#E66000] text-white font-bold rounded-full transition-all duration-500 shadow-lg shadow-orange-100",
                 scrolled
@@ -335,7 +335,7 @@ export function Navbar() {
                   <button
                     onClick={() => {
                       setIsOpen(false)
-                      setIsDemoModalOpen(true)
+                      openBookDemoModal()
                     }}
                     className="w-full text-center py-4 font-bold text-white bg-[#FF6B00] rounded-2xl shadow-xl shadow-orange-100"
                   >
@@ -347,12 +347,6 @@ export function Navbar() {
           )}
         </AnimatePresence>
       </header>
-
-      {/* THE MODAL COMPONENT */}
-      <BookDemoModal
-        isOpen={isDemoModalOpen}
-        onClose={() => setIsDemoModalOpen(false)}
-      />
     </>
   )
 }

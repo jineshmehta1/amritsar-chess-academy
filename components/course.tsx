@@ -4,6 +4,7 @@ import React from "react"
 import { motion } from "framer-motion"
 import { CheckCircle2, ArrowRight, Zap, ShieldCheck, Flame, Crown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 const programs = [
   {
@@ -49,6 +50,7 @@ const programs = [
 ]
 
 export default function AdvancedPrograms() {
+  const { openBookDemoModal } = useBookDemo()
   const navy = "#12123D"
   const orange = "#FF6B00"
   const purple = "#7C3AED"
@@ -142,6 +144,7 @@ export default function AdvancedPrograms() {
                   </div>
 
                   <Button 
+                    onClick={openBookDemoModal}
                     className="w-full h-14 rounded-2xl font-black text-[11px] tracking-[0.15em] flex items-center justify-center gap-2 transition-all active:scale-95 shadow-xl shadow-slate-200 group-hover:shadow-indigo-200"
                     style={{ backgroundColor: item.color, color: '#fff' }}
                   >

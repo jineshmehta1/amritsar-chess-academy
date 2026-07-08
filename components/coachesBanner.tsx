@@ -3,9 +3,10 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { MessageCircle, Users, Award, ChevronDown } from "lucide-react"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 export default function CoachesHero() {
-  const whatsappNumber = "919988775581"
+  const { openBookDemoModal } = useBookDemo()
 
   return (
     <section className="relative h-[85vh] min-h-[100vh] w-full overflow-hidden flex items-center justify-center pt-20">
@@ -70,10 +71,8 @@ export default function CoachesHero() {
             </motion.button>
 
             {/* WhatsApp Integration */}
-            <motion.a
-              href={`https://wa.me/${whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={openBookDemoModal}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-10 py-4 rounded-full flex items-center gap-3 transition-all duration-300"
@@ -82,7 +81,7 @@ export default function CoachesHero() {
               <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase">
                 Direct Consultation
               </span>
-            </motion.a>
+            </motion.button>
           </div>
 
           {/* Trust Badges */}

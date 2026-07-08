@@ -3,6 +3,7 @@ import type React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { Providers } from '@/components/Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -94,7 +95,7 @@ export default function RootLayout({
                 },
                 contactPoint: {
                   '@type': 'ContactPoint',
-                  telephone: '+91-9988775581',
+                  telephone: '+91-9592004076',
                   email: 'amritsarchessclub12@gmail.com',
                 },
                 aggregateRating: {
@@ -130,7 +131,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

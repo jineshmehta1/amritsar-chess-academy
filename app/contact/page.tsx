@@ -14,11 +14,13 @@ import { MapPin, Phone, Mail, Send, Award, Users, Trophy, Sparkles } from "lucid
 import { sendContactEmail } from "@/app/actions/sendEmail"
 import ContactHero from "@/components/contactBanner"
 import FAQSection from "@/components/faq"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 const navy = "#12123D"
 const orange = "#FF6B00"
 
 export default function ContactPage() {
+  const { openBookDemoModal } = useBookDemo()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -110,8 +112,8 @@ export default function ContactPage() {
 
               <div className="space-y-4 md:space-y-6">
                 {[
-                  { icon: MapPin, title: "Our Club", detail: "Mall Road, Amritsar, Punjab 143001", color: navy },
-                  { icon: Phone, title: "Call/WhatsApp", detail: "+91 99887 75581", color: orange },
+                  { icon: MapPin, title: "Our Club", detail: "First Floor, 12, Race Course Rd, Beauty Avenue, Amritsar, Punjab 143001", color: navy },
+                  { icon: Phone, title: "Call/WhatsApp", detail: "+91 95920 04076", color: orange },
                   { icon: Mail, title: "Email Address", detail: "contact@amritsarchess.com", color: navy },
                 ].map((item, i) => (
                   <motion.div 
@@ -256,14 +258,14 @@ export default function ContactPage() {
              Join Amritsar's premier chess club and start building your own gallery of victories. 
            </p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-20">
-              <Link href="https://wa.me/919988775581" className="w-full sm:w-auto">
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] md:text-xs transition-all hover:scale-105 active:scale-95 shadow-lg">
+              <button onClick={openBookDemoModal} className="w-full bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] md:text-xs transition-all hover:scale-105 active:scale-95 shadow-lg">
                   Book Free Demo
                 </button>
-              </Link>
+              <a href="tel:+919592004076" className="w-full sm:w-auto">
               <Button variant="outline" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] md:text-[11px] transition-all border border-white/20 active:scale-95">
-                Call: +91 99887 75581
+                Call: +91 95920 04076
               </Button>
+              </a>
            </div>
         </div>
       </section>

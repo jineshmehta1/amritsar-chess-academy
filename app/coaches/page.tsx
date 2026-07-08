@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import { motion } from "framer-motion"
 import { 
   Trophy, Users, Award, Star, Brain, Search, 
@@ -8,7 +8,7 @@ import {
   GraduationCap
 } from "lucide-react"
 import Link from "next/link"
-import BookDemoModal from "@/components/BookDemoModal"
+import { useBookDemo } from "@/components/BookDemoProvider"
 import CoachesHero from "@/components/coachesBanner"
 import AchievementSection from "@/components/ach"
 import TestimonialSection from "@/components/review"
@@ -42,7 +42,7 @@ const coaches = [
 ]
 
 export default function CoachesPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { openBookDemoModal } = useBookDemo()
 
   return (
     <div className="min-h-screen bg-white">
@@ -145,7 +145,7 @@ export default function CoachesPage() {
 
                   <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">{coach.bio}</p>
 
-                  <button onClick={() => setIsModalOpen(true)} className="w-full py-4 md:py-5 rounded-xl md:rounded-2xl bg-slate-900 text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-500 transition-colors">
+                  <button onClick={openBookDemoModal} className="w-full py-4 md:py-5 rounded-xl md:rounded-2xl bg-slate-900 text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-500 transition-colors">
                     Book Session with {coach.name.split(' ')[0]}
                   </button>
                 </div>
@@ -232,7 +232,7 @@ export default function CoachesPage() {
              Whether you're a curious beginner or a tournament-ready player, our master coaches are here to help you rule the board.
            </p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-20">
-              <button onClick={() => setIsModalOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest transition-all hover:scale-105 shadow-lg active:scale-95">
+              <button onClick={openBookDemoModal} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black text-[10px] md:text-xs uppercase tracking-widest transition-all hover:scale-105 shadow-lg active:scale-95">
                 Book Free Trial
               </button>
               <Link href="/contact" className="w-full sm:w-auto">
@@ -244,7 +244,6 @@ export default function CoachesPage() {
         </div>
       </section>
 
-      <BookDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <Footer/>
     </div>
   )

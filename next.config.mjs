@@ -12,13 +12,17 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: '/programs', destination: '/curriculum', permanent: false },
+      { source: '/online-classes', destination: '/classes', permanent: false },
+      { source: '/puzzle-arena', destination: '/analysis', permanent: false },
+      { source: '/login', destination: '/contact', permanent: false },
       {
         source: '/:path*',
-        has: [  // Only match if host is non-www
+        has: [
           {
             type: 'header',
             key: 'host',
-            value: 'theamritsarchessclub.com',  // Your non-www domain
+            value: 'theamritsarchessclub.com',
           },
         ],
         destination: 'https://www.theamritsarchessclub.com/:path*',

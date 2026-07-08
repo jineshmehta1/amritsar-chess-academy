@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import { motion } from "framer-motion"
 import { 
   Swords, Trophy, Clock, Brain, Target, 
@@ -10,7 +10,7 @@ import {
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import BookDemoModal from "@/components/BookDemoModal"
+import { useBookDemo } from "@/components/BookDemoProvider"
 import AchievementHero from "@/components/achBanner"
 import AchievementSection from "@/components/ach"
 
@@ -18,7 +18,7 @@ const navy = "#12123D"
 const orange = "#FF6B00"
 
 export default function TournamentPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { openBookDemoModal } = useBookDemo()
 
   return (
     <div className="min-h-screen bg-white">
@@ -208,7 +208,7 @@ export default function TournamentPage() {
              Start your competitive journey today. Book a trial session and let us prepare you for your first championship.
            </p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-20 px-4">
-              <button onClick={() => setIsModalOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] md:text-xs transition-all hover:scale-105 active:scale-95 shadow-lg">
+              <button onClick={openBookDemoModal} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] md:text-xs transition-all hover:scale-105 active:scale-95 shadow-lg">
                 Book Trial Session
               </button>
               <Link href="/contact" className="w-full sm:w-auto">
@@ -221,7 +221,6 @@ export default function TournamentPage() {
       </section>
 
       <Footer />
-      <BookDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }

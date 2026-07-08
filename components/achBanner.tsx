@@ -3,9 +3,10 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { MessageCircle, Trophy, Medal, Star } from "lucide-react"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 export default function AchievementHero() {
-  const whatsappNumber = "919988775581"
+  const { openBookDemoModal } = useBookDemo()
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center pt-24 pb-12 md:pt-20 md:pb-0">
@@ -70,10 +71,8 @@ export default function AchievementHero() {
             </motion.button>
 
             {/* WhatsApp Integration */}
-            <motion.a
-              href={`https://wa.me/${whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={openBookDemoModal}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-8 md:px-10 py-3.5 md:py-4 rounded-full flex items-center justify-center gap-3 transition-all duration-300"
@@ -82,7 +81,7 @@ export default function AchievementHero() {
               <span className="text-[10px] md:text-sm font-bold tracking-[0.2em] uppercase">
                 Start Your Journey
               </span>
-            </motion.a>
+            </motion.button>
           </div>
 
           {/* Achievement Quick Stats */}

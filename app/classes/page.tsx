@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, Users, Trophy, Star, Calendar, CheckCircle } from "lucide-react"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 export default function ClassesPage() {
+  const { openBookDemoModal } = useBookDemo()
   const [activeTab, setActiveTab] = useState("all")
 
   const classes = [
@@ -227,7 +229,7 @@ export default function ClassesPage() {
                     ))}
                   </div>
 
-                  <Button className="w-full mt-auto bg-[#FFB347] hover:bg-[#E89A24] text-white font-semibold py-3 rounded-lg">
+                  <Button onClick={openBookDemoModal} className="w-full mt-auto bg-[#FFB347] hover:bg-[#E89A24] text-white font-semibold py-3 rounded-lg">
                     <Calendar className="w-4 h-4 mr-2" />
                     Enroll Now
                   </Button>

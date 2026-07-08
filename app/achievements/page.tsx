@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import { motion } from "framer-motion"
 import { 
   Trophy, Medal, Star, TrendingUp, Users, 
@@ -10,7 +10,7 @@ import {
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import BookDemoModal from "@/components/BookDemoModal"
+import { useBookDemo } from "@/components/BookDemoProvider"
 import AchievementHero from "@/components/achBanner"
 import AchievementSection from "@/components/ach"
 import TestimonialSection from "@/components/review"
@@ -43,7 +43,7 @@ const hallOfFame = [
 ]
 
 export default function AchievementPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { openBookDemoModal } = useBookDemo()
 
   return (
     <div className="min-h-screen bg-white">
@@ -160,7 +160,7 @@ export default function AchievementPage() {
              The board is set, the legacy is waiting. Join the winning club and move your future forward today.
            </p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <button onClick={() => setIsModalOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all hover:scale-105 shadow-lg">
+              <button onClick={openBookDemoModal} className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all hover:scale-105 shadow-lg">
                 Book Free Trial
               </button>
               <Link href="/curriculum">
@@ -173,7 +173,6 @@ export default function AchievementPage() {
       </section>
 
       <Footer />
-      <BookDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }

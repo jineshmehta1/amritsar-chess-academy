@@ -19,8 +19,8 @@ export function Footer() {
   ]
 
   const programs = [
-    { href: "/online-classes", label: "Online Classes" },
-    { href: "/puzzle-arena", label: "Puzzle Arena" },
+    { href: "/classes", label: "Online Classes" },
+    { href: "/analysis", label: "Puzzle Arena" },
     { href: "/tournaments", label: "Tournaments" },
     { href: "/results", label: "Tournament Results" },
     { href: "/analysis", label: "Analysis Board" },
@@ -109,14 +109,14 @@ export function Footer() {
                    <MapPin className="w-4 h-4" style={{ color: orange }} />
                 </div>
                 <p className="text-white/60 leading-relaxed">
-                  Elite Training Wing, Main Market Road,<br /> Amritsar, Punjab - 143001
+                  First Floor, 12, Race Course Rd, Beauty Avenue, Amritsar, Punjab 143001
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-white/5">
                   <Phone className="w-4 h-4" style={{ color: orange }} />
                 </div>
-                <p className="text-white/60">+91-9988775581</p>
+                <p className="text-white/60">+91-9592004076</p>
               </div>
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-white/5">
@@ -125,7 +125,7 @@ export function Footer() {
                 <p className="text-white/60 break-all">info@amritsarchessclub.com</p>
               </div>
               
-              <Link href="https://wa.me/919988775581" className="block pt-2">
+              <Link href="https://wa.me/919592004076" className="block pt-2">
                 <Button className="w-full bg-[#25D366] hover:bg-[#20B858] text-white font-black rounded-xl py-6 shadow-xl shadow-[#25D366]/20">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   WHATSAPP US

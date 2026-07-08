@@ -3,9 +3,9 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { ChevronRight, MessageCircle } from "lucide-react"
+import Link from "next/link"
 
 export default function AboutHero() {
-  const whatsappNumber = "919988775581"
 
   return (
     <section className="relative h-[85vh] min-h-[100vh] w-full overflow-hidden flex items-center justify-center pt-20">
@@ -57,6 +57,7 @@ export default function AboutHero() {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-5 pt-6">
             {/* Primary Action */}
+            <Link href="/curriculum">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -67,12 +68,10 @@ export default function AboutHero() {
               </span>
               <ChevronRight size={18} />
             </motion.button>
+            </Link>
 
-            {/* WhatsApp Integration */}
-            <motion.a
-              href={`https://wa.me/${whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link href="/contact">
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-10 py-4 rounded-full flex items-center gap-3 transition-all duration-300"
@@ -81,7 +80,8 @@ export default function AboutHero() {
               <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase">
                 Contact Coach
               </span>
-            </motion.a>
+            </motion.button>
+            </Link>
           </div>
         </motion.div>
       </div>

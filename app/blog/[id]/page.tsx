@@ -9,11 +9,14 @@ import {
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 const navy = "#12123D"
 const orange = "#FF6B00"
 
 export default function BlogPost() {
+  const { openBookDemoModal } = useBookDemo()
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -116,11 +119,9 @@ export default function BlogPost() {
              the transformation happens. Join our next workshop.
            </p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <Link href="https://wa.me/919988775581">
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all hover:scale-105 shadow-lg">
+              <button onClick={openBookDemoModal} className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs transition-all hover:scale-105 shadow-lg">
                   Book Free Demo
                 </button>
-              </Link>
            </div>
         </div>
       </section>

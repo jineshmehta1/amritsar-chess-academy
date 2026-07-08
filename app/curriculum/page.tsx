@@ -11,7 +11,7 @@ import {
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import BookDemoModal from "@/components/BookDemoModal"
+import { useBookDemo } from "@/components/BookDemoProvider"
 import CurriculumHero from "@/components/curriculumBanner"
 import AchievementSection from "@/components/ach"
 
@@ -70,7 +70,7 @@ const levels = [
 ]
 
 export default function CurriculumPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { openBookDemoModal } = useBookDemo()
   const [activeLevel, setActiveLevel] = useState(0)
 
   return (
@@ -260,7 +260,7 @@ export default function CurriculumPage() {
                        </div>
                     </div>
                  </div>
-                 <button onClick={() => setIsModalOpen(true)} className="mt-10 md:mt-12 bg-orange-500 py-4 rounded-xl md:rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-3 active:scale-95 transition-transform">
+                 <button onClick={openBookDemoModal} className="mt-10 md:mt-12 bg-orange-500 py-4 rounded-xl md:rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-3 active:scale-95 transition-transform">
                     Inquire About Batches <ArrowRight className="w-4 h-4" />
                  </button>
               </div>
@@ -281,7 +281,7 @@ export default function CurriculumPage() {
              Don't leave your child's chess growth to chance. Follow our FIDE-certified blueprint to mastery.
            </p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-20">
-              <button onClick={() => setIsModalOpen(true)} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] transition-all hover:scale-105 active:scale-95 shadow-lg">
+              <button onClick={openBookDemoModal} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 md:px-10 md:py-5 rounded-full font-black uppercase tracking-widest text-[10px] transition-all hover:scale-105 active:scale-95 shadow-lg">
                 Book Free Trial
               </button>
               <Link href="/coaches" className="w-full sm:w-auto">
@@ -294,7 +294,6 @@ export default function CurriculumPage() {
       </section>
 
       <Footer />
-      <BookDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   )
 }

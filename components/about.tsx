@@ -82,6 +82,7 @@ export default function ClubAbout() {
           className="flex flex-col items-center"
         >
           {/* Label */}
+          <Link href="/about">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -92,6 +93,7 @@ export default function ClubAbout() {
             The Club Legacy 
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </motion.div>
+          </Link>
 
           {/* Heading */}
           <h2 

@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
 import Head from "next/head"
 import Link from "next/link"
+import { useBookDemo } from "@/components/BookDemoProvider"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { Footer } from "@/components/footer"
@@ -18,7 +18,7 @@ import DemoCTA from "@/components/cta"
 import FAQSection from "@/components/faq"
 
 export default function HomePage() {
-  // Brand Colors
+  const { openBookDemoModal } = useBookDemo()
   const navy = "#12123D"
   const orange = "#FF6B00"
 
@@ -47,6 +47,7 @@ export default function HomePage() {
             </video>
 
             {/* 1. JASPER ANNOUNCEMENT BAR */}
+            <Link href="/analysis">
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -61,6 +62,7 @@ export default function HomePage() {
               </p>
               <ArrowRight className="h-4 w-4 text-slate-400" />
             </motion.div>
+            </Link>
 
             {/* 2. TEXT CONTENT (FIXED CUTTING) */}
             <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
@@ -82,15 +84,14 @@ export default function HomePage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Link href="/book-demo">
-                    <Button
-                      size="lg"
-                      className="bg-[#FF6B00] hover:bg-[#e66000] text-white font-black text-lg px-10 py-8 rounded-2xl shadow-2xl shadow-[#FF6B00]/20 transition-all hover:scale-105 active:scale-95"
-                    >
-                      Book FREE Demo
-                    </Button>
-                  </Link>
-                  <Link href="/programs">
+                  <Button
+                    size="lg"
+                    onClick={openBookDemoModal}
+                    className="bg-[#FF6B00] hover:bg-[#e66000] text-white font-black text-lg px-10 py-8 rounded-2xl shadow-2xl shadow-[#FF6B00]/20 transition-all hover:scale-105 active:scale-95"
+                  >
+                    Book FREE Demo
+                  </Button>
+                  <Link href="/curriculum">
                     <Button
                       size="lg"
                       variant="outline"

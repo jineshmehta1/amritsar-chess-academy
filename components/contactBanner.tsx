@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { MessageCircle, MapPin, Send } from "lucide-react"
 
 export default function ContactHero() {
-  const whatsappNumber = "919988775581"
+  const whatsappNumber = "919592004076"
 
   return (
     <section className="relative h-[85vh] min-h-[100vh] w-full overflow-hidden flex items-center justify-center pt-20">
@@ -93,7 +93,7 @@ export default function ContactHero() {
             </div>
             <div className="flex items-center gap-3">
               <MessageCircle size={16} className="text-[#2b5292]" />
-              <span className="text-[10px] md:text-xs tracking-widest uppercase text-zinc-300">+91 99887 75581</span>
+              <span className="text-[10px] md:text-xs tracking-widest uppercase text-zinc-300">+91 95920 04076</span>
             </div>
           </div>
         </motion.div>

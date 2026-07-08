@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { MessageCircle, Trophy, Swords, Calendar } from "lucide-react"
 
 export default function TournamentHero() {
-  const whatsappNumber = "919988775581"
+  const whatsappNumber = "919592004076"
 
   return (
     <section className="relative h-[85vh] min-h-[100vh] w-full overflow-hidden flex items-center justify-center pt-20">

@@ -4,8 +4,10 @@ import React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Sparkles, Phone, User, Baby, Send } from "lucide-react"
+import { useBookDemo } from "@/components/BookDemoProvider"
 
 export default function DemoCTA() {
+  const { openBookDemoModal } = useBookDemo()
   const navy = "#12123D"
   const orange = "#FF6B00"
 
@@ -67,7 +69,7 @@ export default function DemoCTA() {
 
             {/* RIGHT: COMPACT FORM */}
             <div className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-5 md:p-8 shadow-2xl w-full max-w-md mx-auto">
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); openBookDemoModal() }}>
                 
                 {/* NAME FIELD */}
                 <div className="relative">
@@ -103,6 +105,8 @@ export default function DemoCTA() {
 
                 {/* SUBMIT BUTTON */}
                 <Button 
+                  type="submit"
+                  onClick={openBookDemoModal}
                   className="w-full py-7 md:py-8 rounded-xl font-black text-[10px] md:text-xs tracking-[0.2em] shadow-xl transition-all active:scale-95 flex items-center justify-center gap-3"
                   style={{ backgroundColor: orange, color: '#fff' }}
                 >
