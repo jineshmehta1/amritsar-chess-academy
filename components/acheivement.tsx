@@ -198,7 +198,7 @@ export function AchievementShowcase() {
               transition={{ delay: 0.6 }}
               className="pt-4 flex justify-center sm:justify-start"
             >
-              <Link href="/book-demo">
+              <Link href="/contact">
                 <Button className="bg-gray-900 text-white hover:bg-gray-800 px-8 py-6 rounded-full text-lg font-bold shadow-lg transition-all hover:scale-105">
                   Train With Champions
                 </Button>
