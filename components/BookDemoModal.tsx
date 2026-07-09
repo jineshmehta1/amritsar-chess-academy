@@ -141,7 +141,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">WhatsApp Number</label>
                       <div className="relative">
                         <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                        <input required type="tel" className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all" placeholder="+91 00000 00000" />
+                        <input required type="tel" className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all" placeholder="+91 95920 04076" />
                       </div>
                     </div>
                   </div>

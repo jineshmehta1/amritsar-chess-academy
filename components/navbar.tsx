@@ -26,6 +26,8 @@ import { useBookDemo } from "@/components/BookDemoProvider"
 
 const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Shop", href: "/shop" },
+  { label: "Events", href: "/events" },
   {
     label: "Club",
     children: [

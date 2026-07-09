@@ -170,7 +170,7 @@ export default function ContactPage() {
                       <Input
                         name="phone" required value={formData.phone} onChange={handleChange}
                         className="bg-slate-50 border-none h-12 md:h-14 rounded-xl md:rounded-2xl px-6 focus-visible:ring-2 focus-visible:ring-orange-500 font-bold"
-                        placeholder="+91 00000 00000"
+                        placeholder="+91 95920 04076"
                       />
                     </div>
                     <div className="space-y-2">
