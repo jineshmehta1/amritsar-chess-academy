@@ -26,11 +26,11 @@ export const metadata: Metadata = {
     'chess club',
     'chess training',
   ],
-  metadataBase: new URL('https://www.theamritsarchessclub.com'),
+  metadataBase: new URL('https://www.amritsarchessclub.in'),
   alternates: {
-    canonical: 'https://www.theamritsarchessclub.com',
+    canonical: 'https://www.amritsarchessclub.in',
   },
-  authors: [{ name: 'Amritsar Chess Club', url: 'https://www.theamritsarchessclub.com' }],
+  authors: [{ name: 'Amritsar Chess Club', url: 'https://www.amritsarchessclub.in' }],
   creator: 'Amritsar Chess Club',
   publisher: 'Amritsar Chess Club',
   robots: {
@@ -40,11 +40,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Amritsar Chess Club - Learn Chess from Top Coaches',
     description: 'World-class chess training club led by top coaches.',
-    url: 'https://www.theamritsarchessclub.com',
+    url: 'https://www.amritsarchessclub.in',
     siteName: 'Amritsar Chess Club',
     images: [
       {
-        url: 'https://www.theamritsarchessclub.com/amritsar.png',
+        url: 'https://www.amritsarchessclub.in/amritsar.png',
         width: 800,
         height: 600,
         alt: 'Amritsar Chess Club Logo',
@@ -82,8 +82,8 @@ export default function RootLayout({
                 '@context': 'https://schema.org',
                 '@type': 'EducationalOrganization',
                 name: 'Amritsar Chess Club (International School of Chess)',
-                url: 'https://www.theamritsarchessclub.com',
-                logo: 'https://www.theamritsarchessclub.com/amritsar.png',
+                url: 'https://www.amritsarchessclub.in',
+                logo: 'https://www.amritsarchessclub.in/amritsar.png',
                 description: 'World-class chess training club led by top coaches.',
                 address: {
                   '@type': 'PostalAddress',

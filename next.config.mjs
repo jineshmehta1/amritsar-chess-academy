@@ -22,10 +22,10 @@ const nextConfig = {
           {
             type: 'header',
             key: 'host',
-            value: 'theamritsarchessclub.com',
+            value: 'amritsarchessclub.in',
           },
         ],
-        destination: 'https://www.theamritsarchessclub.com/:path*',
+        destination: 'https://www.amritsarchessclub.in/:path*',
         permanent: true,
       },
     ];

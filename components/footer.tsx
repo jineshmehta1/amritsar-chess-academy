@@ -122,7 +122,7 @@ export function Footer() {
                 <div className="p-2 rounded-lg bg-white/5">
                   <Mail className="w-4 h-4" style={{ color: orange }} />
                 </div>
-                <p className="text-white/60 break-all">info@amritsarchessclub.com</p>
+                <p className="text-white/60 break-all">info@amritsarchessclub.in</p>
               </div>
               
               <Link href="https://wa.me/919592004076" className="block pt-2">

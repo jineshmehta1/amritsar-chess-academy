@@ -17,8 +17,8 @@ export default function PrivacyPage() {
         </p>
         <p className="text-slate-600 leading-relaxed mb-8">
           We do not sell personal data. For questions about your information, contact us at{" "}
-          <a href="mailto:info@amritsarchessclub.com" className="text-[#FF6B00] font-bold">
-            info@amritsarchessclub.com
+          <a href="mailto:info@amritsarchessclub.in" className="text-[#FF6B00] font-bold">
+            info@amritsarchessclub.in
           </a>.
         </p>
         <Link href="/contact" className="text-[#FF6B00] font-bold hover:underline">

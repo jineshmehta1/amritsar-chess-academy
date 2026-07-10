@@ -193,7 +193,7 @@ export default function FAQSection() {
             </div>
             <div>
               <div className="text-sm md:text-base font-black text-[#12123D]">Email Us</div>
-              <div className="text-[10px] md:text-xs font-bold text-orange-600">support@chessclub.com</div>
+              <div className="text-[10px] md:text-xs font-bold text-orange-600">info@amritsarchessclub.in</div>
             </div>
           </div>
 
