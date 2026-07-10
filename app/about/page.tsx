@@ -13,24 +13,20 @@ import TeachingMethodology from "@/components/program"
 import TestimonialSection from "@/components/review"
 import AboutCTA from "@/components/aboutcta"
 import FoundersSection from "@/components/founder"
+import ObjectivesSection from "@/components/objective"
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
-
       <AboutHero/>
       <AboutUsSection/>
       <FoundersSection/>
       <MissionVision/>
+      <ObjectivesSection/>
       <TeachingMethodology/>
       <TestimonialSection/>
       <AboutCTA/>
-
-     
-
-
-     
       <Footer/>
     </div>
   )

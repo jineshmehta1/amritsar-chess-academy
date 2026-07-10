@@ -96,7 +96,7 @@ export default function RootLayout({
                 contactPoint: {
                   '@type': 'ContactPoint',
                   telephone: '+91-9592004076',
-                  email: 'amritsarchessclub12@gmail.com',
+                  email: 'info@amritsarchessclub.in',
                 },
                 aggregateRating: {
                   '@type': 'AggregateRating',

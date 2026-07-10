@@ -13,7 +13,7 @@ import {
   Search,
   Newspaper,
   Users,
- Image as ImageIcon,
+  Image as ImageIcon,
   Star,
   ChevronRight,
   Sparkles,
@@ -26,8 +26,8 @@ import { useBookDemo } from "@/components/BookDemoProvider"
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Shop", href: "/shop" },
-  { label: "Events", href: "/events" },
+  { label: "Shop", href: "/shop", color: "#10B981" }, // emerald
+  { label: "Events", href: "/events", color: "#8B5CF6" }, // violet
   {
     label: "Club",
     children: [
@@ -144,16 +144,16 @@ export function Navbar() {
           >
             <div
               className={cn(
-                "flex-shrink-0 flex items-center justify-center bg-[#12123D] rounded-xl transition-all duration-300",
+                "flex-shrink-0 flex items-center justify-center bg-[#12123D] rounded-lg transition-all duration-300",
                 scrolled
-                  ? "h-9 w-9 sm:h-10 sm:w-10"
-                  : "h-10 w-10 sm:h-12 sm:w-12 group-hover:scale-105"
+                  ? "h-10 w-10 sm:h-12 sm:w-12"
+                  : "h-12 w-12 sm:h-14 sm:w-14 group-hover:scale-105"
               )}
             >
               <img
                 src="/logo.png"
                 alt="Logo"
-                className="w-full h-full object-cover rounded-xl"
+                className="w-full h-full object-contain rounded-lg"
               />
             </div>
 
@@ -213,6 +213,33 @@ export function Navbar() {
                       </div>
                     </div>
                   </div>
+                ) : item.color ? (
+                  <Link
+                    href={item.href}
+                    style={
+                      pathname === item.href
+                        ? { color: item.color, backgroundColor: `${item.color}1A` }
+                        : undefined
+                    }
+                    className={cn(
+                      "px-4 py-2 text-sm font-bold rounded-full transition-all",
+                      pathname === item.href
+                        ? ""
+                        : "text-[#4B5563] hover:text-white"
+                    )}
+                    onMouseEnter={(e) => {
+                      if (pathname !== item.href) {
+                        e.currentTarget.style.backgroundColor = item.color!
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pathname !== item.href) {
+                        e.currentTarget.style.backgroundColor = ""
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </Link>
                 ) : (
                   <Link
                     href={item.href}
@@ -317,7 +344,15 @@ export function Navbar() {
                         <Link
                           href={group.href!}
                           onClick={() => setIsOpen(false)}
-                          className="block p-4 font-bold text-[#12123D] bg-slate-50 rounded-2xl"
+                          style={
+                            group.color
+                              ? { backgroundColor: `${group.color}1A`, color: group.color }
+                              : undefined
+                          }
+                          className={cn(
+                            "block p-4 font-bold rounded-2xl",
+                            !group.color && "text-[#12123D] bg-slate-50"
+                          )}
                         >
                           {group.label}
                         </Link>
