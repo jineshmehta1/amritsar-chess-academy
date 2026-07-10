@@ -14,6 +14,7 @@ import AchievementSection from "@/components/ach"
 import TestimonialSection from "@/components/review"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import TeamSection from "@/components/founder"
 
 const navy = "#12123D"
 const orange = "#FF6B00"
@@ -91,69 +92,9 @@ export default function CoachesPage() {
         </div>
       </section>
 
-      {/* 3. COACH PROFILES */}
-      <section id="profiles" className="py-16 md:py-24 px-4 md:px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-6xl font-black tracking-tighter" style={{ color: navy }}>
-              The <span style={{ color: orange }}>Grandmasters</span> Behind ACA
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 gap-8 md:gap-12">
-            {coaches.map((coach, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl border border-slate-100 flex flex-col lg:flex-row group"
-                style={{ borderBottom: `8px solid ${i % 2 === 0 ? navy : orange}` }}
-              >
-                {/* Image side */}
-                <div className="lg:w-5/12 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
-                  <img src={coach.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={coach.name} />
-                  <div className="absolute top-4 left-4 bg-orange-500 text-white px-4 py-1 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest">
-                    {coach.exp} Experience
-                  </div>
-                </div>
+      <TeamSection/>
 
-                {/* Content side */}
-                <div className="lg:w-7/12 p-6 md:p-12 space-y-4 md:space-y-6">
-                  <div>
-                    <h3 className="text-2xl md:text-3xl font-black mb-1" style={{ color: navy }}>{coach.name}</h3>
-                    <p className="text-orange-500 text-[10px] md:text-xs font-black uppercase tracking-[0.2em]">{coach.title}</p>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-3 md:gap-4">
-                    <div className="p-3 md:p-4 bg-slate-50 rounded-xl md:rounded-2xl">
-                      <div className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase">Rating</div>
-                      <div className="text-xs md:text-sm font-bold text-[#12123D]">{coach.rating}</div>
-                    </div>
-                    <div className="p-3 md:p-4 bg-slate-50 rounded-xl md:rounded-2xl">
-                      <div className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase">Focus</div>
-                      <div className="text-[10px] md:text-xs font-bold text-[#12123D] leading-tight mt-1">{coach.specialization}</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-black text-[#12123D] uppercase">
-                       <Award size={16} className="text-orange-500" /> Key Achievement
-                    </div>
-                    <p className="text-xs md:text-sm text-slate-600 font-medium italic">"{coach.achievements}"</p>
-                  </div>
-
-                  <p className="text-xs md:text-sm text-slate-500 leading-relaxed font-medium">{coach.bio}</p>
-
-                  <button onClick={openBookDemoModal} className="w-full py-4 md:py-5 rounded-xl md:rounded-2xl bg-slate-900 text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-500 transition-colors">
-                    Book Session with {coach.name.split(' ')[0]}
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    
 
       {/* 4. METHODOLOGY (Premium Cards) */}
       <section className="py-16 md:py-24 bg-[#12123D] text-white px-4 md:px-6 relative overflow-hidden">
