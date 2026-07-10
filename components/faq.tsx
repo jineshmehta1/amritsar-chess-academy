@@ -204,7 +204,7 @@ export default function FAQSection() {
             </div>
             <div>
               <div className="text-sm md:text-base font-black text-[#12123D]">Call Us</div>
-              <div className="text-[10px] md:text-xs font-bold text-slate-500">+91 98765 43210</div>
+              <div className="text-[10px] md:text-xs font-bold text-slate-500">+91 95920 04076</div>
             </div>
           </div>
 

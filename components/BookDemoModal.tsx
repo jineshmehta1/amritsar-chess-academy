@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Send, Sparkles, Calendar, User, Phone, Brain, Mail, Users, Clock } from "lucide-react"
+import { sendDemoRequest } from "@/app/actions/sendDemoRequest"
 
 const navy = "#12123D"
 const orange = "#FF6B00"
@@ -12,22 +13,47 @@ interface BookDemoModalProps {
   onClose: () => void
 }
 
+const initialState = {
+  studentName: "",
+  studentAge: "",
+  parentName: "",
+  phone: "",
+  email: "",
+  level: "Complete Beginner",
+  slot: "Weekday Evening",
+  source: "Social Media (Instagram/Facebook)",
+}
+
 export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
+  const [formData, setFormData] = useState(initialState)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate API Call
-    setTimeout(() => {
-      setIsSubmitting(false)
+    setError(null)
+
+    const result = await sendDemoRequest(formData)
+
+    if (result.success) {
       setIsSuccess(true)
+      setFormData(initialState)
       setTimeout(() => {
         onClose()
         setIsSuccess(false)
       }, 2500)
-    }, 1500)
+    } else {
+      setError("Something went wrong. Please try again or WhatsApp us directly.")
+    }
+    setIsSubmitting(false)
   }
 
   return (
@@ -51,15 +77,15 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
             className="relative w-full max-w-5xl bg-white rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[95vh] md:max-h-none overflow-y-auto md:overflow-visible"
           >
             {/* LEFT SIDE: DOTTED PATTERN & INFO */}
-            <div 
+            <div
               className="md:w-5/12 p-10 text-white relative flex flex-col justify-between overflow-hidden min-h-[300px] md:min-h-full"
               style={{ backgroundColor: navy }}
             >
-              {/* THE DOTTED PATTERN */}
-              <div className="absolute inset-0 opacity-20 pointer-events-none" 
-                   style={{ backgroundImage: `radial-gradient(${orange} 1.5px, transparent 0)`, backgroundSize: '24px 24px' }} 
+              <div
+                className="absolute inset-0 opacity-20 pointer-events-none"
+                style={{ backgroundImage: `radial-gradient(${orange} 1.5px, transparent 0)`, backgroundSize: "24px 24px" }}
               />
-              
+
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-6">
                   <Sparkles size={20} style={{ color: orange }} />
@@ -86,13 +112,12 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                 ))}
               </div>
 
-              {/* Decorative King */}
               <img src="/king1.png" className="absolute -bottom-10 -left-10 w-48 opacity-10 pointer-events-none" alt="" />
             </div>
 
             {/* RIGHT SIDE: THE FORM */}
             <div className="md:w-7/12 p-8 md:p-12 bg-white relative overflow-y-auto">
-              <button 
+              <button
                 onClick={onClose}
                 className="absolute top-6 right-6 text-slate-300 hover:text-slate-900 transition-colors z-20"
               >
@@ -100,8 +125,8 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
               </button>
 
               {isSuccess ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }} 
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="h-full min-h-[400px] flex flex-col items-center justify-center text-center space-y-4"
                 >
@@ -113,53 +138,72 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* STUDENT INFO GROUP */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Student Name</label>
                       <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                        <input required className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all" placeholder="Child's name" />
+                        <input
+                          name="studentName" required value={formData.studentName} onChange={handleChange}
+                          className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all"
+                          placeholder="Child's name"
+                        />
                       </div>
                     </div>
                     <div className="space-y-1">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Student Age</label>
-                      <input required type="number" className="w-full bg-slate-50 border-none h-12 rounded-xl px-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all" placeholder="Years" />
+                      <input
+                        name="studentAge" required type="number" value={formData.studentAge} onChange={handleChange}
+                        className="w-full bg-slate-50 border-none h-12 rounded-xl px-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all"
+                        placeholder="Years"
+                      />
                     </div>
                   </div>
 
-                  {/* PARENT INFO GROUP */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Parent/Guardian Name</label>
                       <div className="relative">
                         <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                        <input required className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all" placeholder="Parent's name" />
+                        <input
+                          name="parentName" required value={formData.parentName} onChange={handleChange}
+                          className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all"
+                          placeholder="Parent's name"
+                        />
                       </div>
                     </div>
                     <div className="space-y-1">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">WhatsApp Number</label>
                       <div className="relative">
                         <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                        <input required type="tel" className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all" placeholder="+91 95920 04076" />
+                        <input
+                          name="phone" required type="tel" value={formData.phone} onChange={handleChange}
+                          className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all"
+                          placeholder="+91 95920 04076"
+                        />
                       </div>
                     </div>
                   </div>
 
-                  {/* CONTACT GROUP */}
                   <div className="space-y-1">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email Address</label>
                     <div className="relative">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                      <input required type="email" className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all" placeholder="email@example.com" />
+                      <input
+                        name="email" required type="email" value={formData.email} onChange={handleChange}
+                        className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-sm focus:ring-2 focus:ring-orange-500 transition-all"
+                        placeholder="email@example.com"
+                      />
                     </div>
                   </div>
 
-                  {/* EXPERIENCE & PREFERENCE GROUP */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Chess Level</label>
-                      <select className="w-full bg-slate-50 border-none h-12 rounded-xl px-4 font-bold text-xs appearance-none cursor-pointer focus:ring-2 focus:ring-orange-500">
+                      <select
+                        name="level" value={formData.level} onChange={handleChange}
+                        className="w-full bg-slate-50 border-none h-12 rounded-xl px-4 font-bold text-xs appearance-none cursor-pointer focus:ring-2 focus:ring-orange-500"
+                      >
                         <option>Complete Beginner</option>
                         <option>Knows basics (Intermediate)</option>
                         <option>Rated Player (Advanced)</option>
@@ -169,7 +213,10 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Preferred Demo Slot</label>
                       <div className="relative">
                         <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
-                        <select className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-xs appearance-none cursor-pointer focus:ring-2 focus:ring-orange-500">
+                        <select
+                          name="slot" value={formData.slot} onChange={handleChange}
+                          className="w-full bg-slate-50 border-none h-12 rounded-xl pl-11 pr-4 font-bold text-xs appearance-none cursor-pointer focus:ring-2 focus:ring-orange-500"
+                        >
                           <option>Weekday Evening</option>
                           <option>Weekend Morning</option>
                           <option>Weekend Evening</option>
@@ -178,10 +225,12 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                     </div>
                   </div>
 
-                  {/* HOW DID YOU HEAR ABOUT US */}
                   <div className="space-y-1">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">How did you find us?</label>
-                    <select className="w-full bg-slate-50 border-none h-12 rounded-xl px-4 font-bold text-xs appearance-none cursor-pointer focus:ring-2 focus:ring-orange-500">
+                    <select
+                      name="source" value={formData.source} onChange={handleChange}
+                      className="w-full bg-slate-50 border-none h-12 rounded-xl px-4 font-bold text-xs appearance-none cursor-pointer focus:ring-2 focus:ring-orange-500"
+                    >
                       <option>Social Media (Instagram/Facebook)</option>
                       <option>Google Search</option>
                       <option>Referral (Friend/Family)</option>
@@ -189,7 +238,11 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                     </select>
                   </div>
 
-                  <button 
+                  {error && (
+                    <p className="text-center text-xs font-bold text-red-500">{error}</p>
+                  )}
+
+                  <button
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full h-14 rounded-xl text-white font-black uppercase tracking-widest text-xs shadow-xl transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 mt-4"
@@ -197,7 +250,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                   >
                     {isSubmitting ? "Processing..." : "Confirm Free Demo Class"}
                   </button>
-                  
+
                   <p className="text-center text-[9px] text-slate-400 font-bold uppercase tracking-widest">
                     No payment required • 45-Minute Session
                   </p>

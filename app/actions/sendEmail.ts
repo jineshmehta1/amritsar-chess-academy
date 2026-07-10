@@ -1,65 +1,49 @@
 "use server"
 
-import { Resend } from "resend";
+import { resend } from "@/lib/resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// 1. Action for Contact Page
-export async function sendContactEmail(formData: any) {
-  try {
-    const { name, email, phone, age, experience, program, message } = formData;
-
-    const { data, error } = await resend.emails.send({
-      from: "Amritsar Chess Club <onboarding@resend.dev>",
-      to: ["info@amritsarchessclub.in"],
-      subject: `New Contact Inquiry: ${name}`,
-      replyTo: email,
-      html: `
-        <h1>New Contact Inquiry</h1>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Age:</strong> ${age}</p>
-        <p><strong>Experience:</strong> ${experience}</p>
-        <p><strong>Program:</strong> ${program}</p>
-        <p><strong>Message:</strong> ${message}</p>
-      `,
-    });
-
-    if (error) return { success: false, error };
-    return { success: true };
-  } catch (err) {
-    return { success: false, error: err };
-  }
+interface ContactFormData {
+  name: string
+  email: string
+  phone: string
+  age?: string
+  experience?: string
+  program: string
+  message: string
 }
 
-// 2. Action for Book Demo Page
-export async function sendDemoBookingEmail(formData: any) {
+export async function sendContactEmail(data: ContactFormData) {
   try {
-    const { studentName, parentName, email, phone, age, experience } = formData;
+    const { name, email, phone, program, message } = data
 
-    const { data, error } = await resend.emails.send({
-      from: "Amritsar Chess Club <onboarding@resend.dev>",
-      to: ["info@amritsarchessclub.in"],
-      subject: `FREE DEMO BOOKED: ${studentName}`,
+    const { error } = await resend.emails.send({
+      from: "Amritsar Chess Club <onboarding@resend.dev>", // swap to your verified domain, e.g. "Amritsar Chess Club <no-reply@amritsarchessclub.in>"
+      to: process.env.CONTACT_EMAIL_TO as string,
       replyTo: email,
+      subject: `New Contact Enquiry from ${name}`,
       html: `
-        <div style="font-family: sans-serif; padding: 20px; border: 2px solid #f97316;">
-          <h1 style="color: #f97316;">New Demo Class Booking</h1>
-          <p><strong>Student Name:</strong> ${studentName}</p>
-          <p><strong>Parent Name:</strong> ${parentName}</p>
-          <p><strong>Age:</strong> ${age}</p>
-          <p><strong>Experience:</strong> ${experience}</p>
-          <hr />
-          <p><strong>Phone:</strong> ${phone}</p>
-          <p><strong>Email:</strong> ${email}</p>
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color:#12123D;">New Website Enquiry</h2>
+          <table style="width:100%; border-collapse: collapse;">
+            <tr><td style="padding:8px 0; font-weight:bold; width:140px;">Name</td><td>${name}</td></tr>
+            <tr><td style="padding:8px 0; font-weight:bold;">Email</td><td>${email}</td></tr>
+            <tr><td style="padding:8px 0; font-weight:bold;">WhatsApp</td><td>${phone}</td></tr>
+            <tr><td style="padding:8px 0; font-weight:bold;">Program</td><td>${program || "Not specified"}</td></tr>
+          </table>
+          <p style="margin-top:16px; font-weight:bold;">Message:</p>
+          <p style="background:#f8fafc; padding:16px; border-radius:8px;">${message}</p>
         </div>
       `,
-    });
+    })
 
-    if (error) return { success: false, error };
-    return { success: true };
+    if (error) {
+      console.error("Resend error:", error)
+      return { success: false, error: error.message }
+    }
+
+    return { success: true }
   } catch (err) {
-    return { success: false, error: err };
+    console.error("sendContactEmail error:", err)
+    return { success: false, error: "Failed to send email" }
   }
 }

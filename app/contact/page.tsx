@@ -114,7 +114,7 @@ export default function ContactPage() {
                 {[
                   { icon: MapPin, title: "Our Club", detail: "First Floor, 12, Race Course Rd, Beauty Avenue, Amritsar, Punjab 143001", color: navy },
                   { icon: Phone, title: "Call/WhatsApp", detail: "+91 95920 04076", color: orange },
-                  { icon: Mail, title: "Email Address", detail: "contact@amritsarchess.com", color: navy },
+                  { icon: Mail, title: "Email Address", detail: "info@amritsarchessclub.in", color: navy },
                 ].map((item, i) => (
                   <motion.div 
                     whileHover={{ x: 10 }}
