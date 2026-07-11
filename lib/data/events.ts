@@ -12,25 +12,36 @@ export interface ChessEvent {
 
 export const eventsData: ChessEvent[] = [
   {
-    id: "amritsar-open-2026",
-    title: "Amritsar Junior Open 2026",
-    date: "August 15, 2026 - August 16, 2026",
-    time: "09:00 AM - 05:00 PM",
-    location: "Amritsar Chess Club Academy, Ranjit Avenue",
-    entryFee: 500,
-    brochureUrl: "/brochure.pdf", // User needs to place a brochure.pdf in the public folder
-    description: "The biggest junior open tournament in Amritsar. Rated players and unrated players welcome. Exciting cash prizes and trophies to be won!",
+    id: "girls-women-championship-2026",
+    title: "Girls & Women Championship",
+    date: "Saturday, 18th July 2026",
+    time: "10:00 AM Onwards",
+    location: "Amritsar Chess Club, 12 Race Course Road, Amritsar",
+    entryFee: 400,
+    brochureUrl: "/brochure.pdf", 
+    description: "Categories: Under-11 Girls (10:00 AM - 2:00 PM), Under-17 Girls (10:00 AM - 2:00 PM), and Open Women (4:00 PM - 7:00 PM). Rapid 15+10 seconds format. 5 Rounds Swiss System. Total Cash Prize Pool: ₹9,000. Entry fee: ₹400 for 1 event, ₹700 for 2 events, ₹1,000 for 3 events.",
     status: "upcoming"
   },
   {
-    id: "weekend-blitz-bash",
-    title: "Weekend Blitz Bash",
-    date: "July 25, 2026",
-    time: "10:00 AM - 02:00 PM",
-    location: "Amritsar Chess Club Academy, Ranjit Avenue",
-    entryFee: 300,
+    id: "boys-championship-2026",
+    title: "Boys Championship",
+    date: "Sunday, 19th July 2026",
+    time: "10:00 AM Onwards",
+    location: "Amritsar Chess Club, 12 Race Course Road, Amritsar",
+    entryFee: 400,
     brochureUrl: "/brochure.pdf",
-    description: "A fast-paced 3+2 blitz tournament to sharpen your instincts. Open to all age groups.",
+    description: "Categories: Under-11 Boys (10:00 AM - 2:00 PM) and Under-17 Boys (3:00 PM - 7:00 PM). Rapid 15+10 seconds format. 5 Rounds Swiss System. Total Cash Prize Pool: ₹6,000. Entry fee: ₹400 for 1 event, ₹700 for 2 events, ₹1,000 for 3 events.",
+    status: "upcoming"
+  },
+  {
+    id: "open-championship-2026",
+    title: "Open Championship",
+    date: "Monday, 20th July 2026",
+    time: "4:00 PM - 7:00 PM",
+    location: "Amritsar Chess Club, 12 Race Course Road, Amritsar",
+    entryFee: 400,
+    brochureUrl: "/brochure.pdf",
+    description: "Play. Compete. Win. Rapid 15+10 seconds format. 5 Rounds Swiss System. Total Cash Prize Pool: ₹5,000. Entry fee: ₹400 for 1 event, ₹700 for 2 events, ₹1,000 for 3 events.",
     status: "upcoming"
   }
 ];
