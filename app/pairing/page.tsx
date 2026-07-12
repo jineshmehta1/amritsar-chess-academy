@@ -443,14 +443,18 @@ export default function PairingAdminPage() {
                         </CardHeader>
                         <CardContent className="pt-6">
                           <div className="space-y-4">
-                            {round.pairings.map((pairing: any, pIndex: number) => (
+                            {round.pairings.map((pairing: any, pIndex: number) => {
+                              const p1 = tournamentData.players.find((p: any) => p.id === pairing.p1Id);
+                              const p2 = pairing.p2Id ? tournamentData.players.find((p: any) => p.id === pairing.p2Id) : null;
+
+                              return (
                               <div key={pairing.id} className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-xl border border-slate-100 bg-white hover:border-[#FF6B00]/30 hover:shadow-md transition-all">
                                 <div className="flex-1 flex justify-end font-semibold text-lg text-[#12123D]">
-                                  {pairing.p1?.name} <span className="text-xs text-slate-400 ml-2 hidden md:inline">({pairing.p1?.score})</span>
+                                  {p1?.name} <span className="text-xs text-slate-400 ml-2 hidden md:inline">({p1?.score})</span>
                                 </div>
                                 
                                 <div className="w-full md:w-48 shrink-0">
-                                  {pairing.p2 === null ? (
+                                  {pairing.p2Id === null ? (
                                     <div className="text-center py-2 px-3 bg-slate-100 rounded-md text-sm font-semibold text-slate-500 border border-slate-200">
                                       BYE (1 - 0)
                                     </div>
@@ -473,10 +477,10 @@ export default function PairingAdminPage() {
                                 </div>
 
                                 <div className="flex-1 flex justify-start font-semibold text-lg text-[#12123D]">
-                                  <span className="text-xs text-slate-400 mr-2 hidden md:inline">({pairing.p2?.score})</span> {pairing.p2 ? pairing.p2.name : "None"}
+                                  <span className="text-xs text-slate-400 mr-2 hidden md:inline">({p2?.score})</span> {p2 ? p2.name : "None"}
                                 </div>
                               </div>
-                            ))}
+                            )})}
                           </div>
                         </CardContent>
                       </Card>
