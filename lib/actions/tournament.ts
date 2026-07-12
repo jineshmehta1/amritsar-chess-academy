@@ -165,8 +165,8 @@ async function updateScoresAndBuchholz(tournamentId: string) {
     });
   });
 
-  // Calculate Buchholz and prepare update promises
-  const updatePromises = tournament.players.map(player => {
+  // Execute all updates in a single raw query
+  const valuesToUpdate = tournament.players.map(player => {
     const stats = playerStats.get(player.id);
     if (!stats) return null;
 
@@ -175,15 +175,18 @@ async function updateScoresAndBuchholz(tournamentId: string) {
       buchholz += playerStats.get(oppId)?.score || 0;
     }
 
-    return prisma.player.update({
-      where: { id: player.id },
-      data: {
-        score: stats.score,
-        buchholz: buchholz
-      }
-    });
+    return `('${player.id}', ${stats.score}, ${buchholz})`;
   }).filter(Boolean);
 
-  // Execute all updates in a single transaction
-  await prisma.$transaction(updatePromises as any);
+  if (valuesToUpdate.length > 0) {
+    const valuesString = valuesToUpdate.join(', ');
+    await prisma.$executeRawUnsafe(`
+      UPDATE "Player" AS p
+      SET 
+        score = CAST(c.score AS DOUBLE PRECISION),
+        buchholz = CAST(c.buchholz AS DOUBLE PRECISION)
+      FROM (VALUES ${valuesString}) AS c(id, score, buchholz)
+      WHERE p.id = CAST(c.id AS TEXT)
+    `);
+  }
 }

@@ -52,10 +52,10 @@ model Pairing {
   round    Round   @relation(fields: [roundId], references: [id], onDelete: Cascade)
 
   p1Id     String
-  p1       Player  @relation("PlayerOne", fields: [p1Id], references: [id])
+  p1       Player  @relation("PlayerOne", fields: [p1Id], references: [id], onDelete: Cascade)
   
   p2Id     String? // Nullable if the player got a bye
-  p2       Player? @relation("PlayerTwo", fields: [p2Id], references: [id])
+  p2       Player? @relation("PlayerTwo", fields: [p2Id], references: [id], onDelete: Cascade)
 
   result   String? // "1-0", "0-1", "0.5-0.5", or null for pending
 }
