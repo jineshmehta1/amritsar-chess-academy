@@ -165,22 +165,25 @@ async function updateScoresAndBuchholz(tournamentId: string) {
     });
   });
 
-  // Calculate Buchholz and save
-  for (const player of tournament.players) {
+  // Calculate Buchholz and prepare update promises
+  const updatePromises = tournament.players.map(player => {
     const stats = playerStats.get(player.id);
-    if (!stats) continue;
+    if (!stats) return null;
 
     let buchholz = 0;
     for (const oppId of stats.playedAgainst) {
       buchholz += playerStats.get(oppId)?.score || 0;
     }
 
-    await prisma.player.update({
+    return prisma.player.update({
       where: { id: player.id },
       data: {
         score: stats.score,
         buchholz: buchholz
       }
     });
-  }
+  }).filter(Boolean);
+
+  // Execute all updates in a single transaction
+  await prisma.$transaction(updatePromises as any);
 }
