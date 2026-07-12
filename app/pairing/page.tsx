@@ -183,8 +183,85 @@ export default function PairingAdminPage() {
   };
 
   const handleResultChange = async (pairingId: string, result: MatchResult) => {
-    const updated = await updateMatchResult(pairingId, result);
-    setTournamentData(updated);
+    // 1. Calculate and set the optimistic UI state instantly
+    if (tournamentData) {
+      const optimisticData = recalculateClientScores(tournamentData, pairingId, result);
+      setTournamentData(optimisticData);
+    }
+
+    // 2. Perform the server update in the background
+    try {
+      const updated = await updateMatchResult(pairingId, result);
+      setTournamentData(updated);
+    } catch (err) {
+      console.error("Failed to sync match result with server:", err);
+      // Optional: reload page or show error if sync failed
+    }
+  };
+
+  // Helper function to recalculate scores and Buchholz instantly on the client side
+  const recalculateClientScores = (data: any, targetPairingId: string, newResult: MatchResult) => {
+    const clone = JSON.parse(JSON.stringify(data));
+    
+    let found = false;
+    for (const round of clone.rounds) {
+      for (const pairing of round.pairings) {
+        if (pairing.id === targetPairingId) {
+          pairing.result = newResult === "pending" ? null : newResult;
+          found = true;
+          break;
+        }
+      }
+      if (found) break;
+    }
+
+    const playerStats = new Map<string, { score: number, playedAgainst: string[] }>();
+    clone.players.forEach((p: any) => {
+      playerStats.set(p.id, { score: 0, playedAgainst: [] });
+    });
+
+    clone.rounds.forEach((round: any) => {
+      round.pairings.forEach((pairing: any) => {
+        const p1Stats = playerStats.get(pairing.p1Id);
+        const p2Stats = pairing.p2Id ? playerStats.get(pairing.p2Id) : null;
+
+        if (p1Stats && p2Stats && pairing.p2Id) {
+          p1Stats.playedAgainst.push(pairing.p2Id);
+          p2Stats.playedAgainst.push(pairing.p1Id);
+        }
+
+        if (pairing.result === "1-0" && p1Stats) {
+          p1Stats.score += 1;
+        } else if (pairing.result === "0-1" && p2Stats) {
+          p2Stats.score += 1;
+        } else if (pairing.result === "0.5-0.5" && p1Stats && p2Stats) {
+          p1Stats.score += 0.5;
+          p2Stats.score += 0.5;
+        }
+      });
+    });
+
+    clone.players.forEach((player: any) => {
+      const stats = playerStats.get(player.id);
+      if (!stats) return;
+
+      let buchholz = 0;
+      for (const oppId of stats.playedAgainst) {
+        buchholz += playerStats.get(oppId)?.score || 0;
+      }
+
+      player.score = stats.score;
+      player.buchholz = buchholz;
+    });
+
+    clone.players.sort((a: any, b: any) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return b.buchholz - a.buchholz;
+    });
+
+    return clone;
   };
 
   const exportToCSV = () => {
