@@ -108,9 +108,9 @@ export default function PairingAdminPage() {
   const handleAddPlayer = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPlayerName.trim() || !activeTournamentId) return;
-    await addPlayer(activeTournamentId, newPlayerName.trim(), parseInt(newPlayerRating) || 1200);
+    const updated = await addPlayer(activeTournamentId, newPlayerName.trim(), parseInt(newPlayerRating) || 1200);
     setNewPlayerName("");
-    await loadTournamentData(activeTournamentId);
+    setTournamentData(updated);
   };
 
   const handleRemovePlayer = async (id: string) => {
@@ -118,14 +118,14 @@ export default function PairingAdminPage() {
       alert("Cannot remove players after tournament has started.");
       return;
     }
-    await removePlayer(id);
-    await loadTournamentData(activeTournamentId!);
+    const updated = await removePlayer(id, activeTournamentId!);
+    setTournamentData(updated);
   };
 
   const handleResetTournament = async () => {
     if (confirm("Are you sure you want to reset all progress? Players will be kept but scores and rounds will be cleared.")) {
-      await resetTournamentData(activeTournamentId!);
-      await loadTournamentData(activeTournamentId!);
+      const updated = await resetTournamentData(activeTournamentId!);
+      setTournamentData(updated);
     }
   };
 
@@ -178,13 +178,13 @@ export default function PairingAdminPage() {
     }
 
     const nextRoundNumber = (tournamentData.rounds?.length || 0) + 1;
-    await saveRoundWithPairings(activeTournamentId!, nextRoundNumber, newPairings);
-    await loadTournamentData(activeTournamentId!);
+    const updated = await saveRoundWithPairings(activeTournamentId!, nextRoundNumber, newPairings);
+    setTournamentData(updated);
   };
 
   const handleResultChange = async (pairingId: string, result: MatchResult) => {
-    await updateMatchResult(pairingId, result);
-    await loadTournamentData(activeTournamentId!);
+    const updated = await updateMatchResult(pairingId, result);
+    setTournamentData(updated);
   };
 
   const exportToCSV = () => {

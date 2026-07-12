@@ -52,7 +52,7 @@ export async function deleteTournament(id: string) {
 }
 
 export async function addPlayer(tournamentId: string, name: string, rating: number) {
-  return prisma.player.create({
+  await prisma.player.create({
     data: {
       tournamentId,
       name,
@@ -61,12 +61,14 @@ export async function addPlayer(tournamentId: string, name: string, rating: numb
       buchholz: 0,
     }
   });
+  return getTournamentDetails(tournamentId);
 }
 
-export async function removePlayer(playerId: string) {
-  return prisma.player.delete({
+export async function removePlayer(playerId: string, tournamentId: string) {
+  await prisma.player.delete({
     where: { id: playerId }
   });
+  return getTournamentDetails(tournamentId);
 }
 
 export async function resetTournamentData(tournamentId: string) {
@@ -81,7 +83,7 @@ export async function resetTournamentData(tournamentId: string) {
     data: { score: 0, buchholz: 0 }
   });
 
-  return { success: true };
+  return getTournamentDetails(tournamentId);
 }
 
 export async function saveRoundWithPairings(tournamentId: string, roundNumber: number, pairings: { p1Id: string, p2Id: string | null }[]) {
@@ -104,7 +106,7 @@ export async function saveRoundWithPairings(tournamentId: string, roundNumber: n
     await updateScoresAndBuchholz(tournamentId);
   }
 
-  return round;
+  return getTournamentDetails(tournamentId);
 }
 
 export async function updateMatchResult(pairingId: string, result: "1-0" | "0-1" | "0.5-0.5" | null) {
@@ -115,73 +117,65 @@ export async function updateMatchResult(pairingId: string, result: "1-0" | "0-1"
   });
 
   await updateScoresAndBuchholz(pairing.round.tournamentId);
-  return pairing;
+  return getTournamentDetails(pairing.round.tournamentId);
 }
 
-// Helper to recalculate all scores and buchholz for a tournament
 async function updateScoresAndBuchholz(tournamentId: string) {
-  const tournament = await prisma.tournament.findUnique({
-    where: { id: tournamentId },
-    include: {
-      players: true,
-      rounds: {
-        include: { pairings: true }
-      }
-    }
-  });
+  await prisma.$executeRaw`
+    WITH RawMatches AS (
+      SELECT 
+        p."p1Id" AS player_id,
+        p."p2Id" AS opponent_id,
+        CASE 
+          WHEN p.result = '1-0' THEN 1.0
+          WHEN p.result = '0-1' THEN 0.0
+          WHEN p.result = '0.5-0.5' THEN 0.5
+          ELSE 0.0
+        END AS score
+      FROM "Pairing" p
+      JOIN "Round" r ON p."roundId" = r.id
+      WHERE r."tournamentId" = ${tournamentId}
 
-  if (!tournament) return;
+      UNION ALL
 
-  const playerStats = new Map<string, { score: number, playedAgainst: string[] }>();
-  
-  tournament.players.forEach(p => {
-    playerStats.set(p.id, { score: 0, playedAgainst: [] });
-  });
-
-  // Calculate base scores
-  tournament.rounds.forEach(round => {
-    round.pairings.forEach(pairing => {
-      const p1Stats = playerStats.get(pairing.p1Id);
-      const p2Stats = pairing.p2Id ? playerStats.get(pairing.p2Id) : null;
-
-      if (p1Stats && p2Stats && pairing.p2Id) {
-         p1Stats.playedAgainst.push(pairing.p2Id);
-         p2Stats.playedAgainst.push(pairing.p1Id);
-      }
-
-      if (pairing.result === "1-0" && p1Stats) {
-        p1Stats.score += 1;
-      } else if (pairing.result === "0-1" && p2Stats) {
-        p2Stats.score += 1;
-      } else if (pairing.result === "0.5-0.5" && p1Stats && p2Stats) {
-        p1Stats.score += 0.5;
-        p2Stats.score += 0.5;
-      }
-    });
-  });
-
-  // Execute all updates in a single raw query
-  const valuesToUpdate = tournament.players.map(player => {
-    const stats = playerStats.get(player.id);
-    if (!stats) return null;
-
-    let buchholz = 0;
-    for (const oppId of stats.playedAgainst) {
-      buchholz += playerStats.get(oppId)?.score || 0;
-    }
-
-    return `('${player.id}', ${stats.score}, ${buchholz})`;
-  }).filter(Boolean);
-
-  if (valuesToUpdate.length > 0) {
-    const valuesString = valuesToUpdate.join(', ');
-    await prisma.$executeRawUnsafe(`
-      UPDATE "Player" AS p
-      SET 
-        score = CAST(c.score AS DOUBLE PRECISION),
-        buchholz = CAST(c.buchholz AS DOUBLE PRECISION)
-      FROM (VALUES ${valuesString}) AS c(id, score, buchholz)
-      WHERE p.id = CAST(c.id AS TEXT)
-    `);
-  }
+      SELECT 
+        p."p2Id" AS player_id,
+        p."p1Id" AS opponent_id,
+        CASE 
+          WHEN p.result = '1-0' THEN 0.0
+          WHEN p.result = '0-1' THEN 1.0
+          WHEN p.result = '0.5-0.5' THEN 0.5
+          ELSE 0.0
+        END AS score
+      FROM "Pairing" p
+      JOIN "Round" r ON p."roundId" = r.id
+      WHERE r."tournamentId" = ${tournamentId} AND p."p2Id" IS NOT NULL
+    ),
+    PlayerScores AS (
+      SELECT 
+        pl.id AS player_id,
+        COALESCE(SUM(rm.score), 0.0) AS total_score
+      FROM "Player" pl
+      LEFT JOIN RawMatches rm ON pl.id = rm.player_id
+      WHERE pl."tournamentId" = ${tournamentId}
+      GROUP BY pl.id
+    ),
+    PlayerBuchholz AS (
+      SELECT 
+        pl.id AS player_id,
+        COALESCE(SUM(ops.total_score), 0.0) AS total_buchholz
+      FROM "Player" pl
+      LEFT JOIN RawMatches rm ON pl.id = rm.player_id AND rm.opponent_id IS NOT NULL
+      LEFT JOIN PlayerScores ops ON rm.opponent_id = ops.player_id
+      WHERE pl."tournamentId" = ${tournamentId}
+      GROUP BY pl.id
+    )
+    UPDATE "Player" p
+    SET 
+      score = ps.total_score,
+      buchholz = pb.total_buchholz
+    FROM PlayerScores ps
+    JOIN PlayerBuchholz pb ON ps.player_id = pb.player_id
+    WHERE p.id = ps.player_id AND p."tournamentId" = ${tournamentId};
+  `;
 }
