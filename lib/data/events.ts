@@ -18,7 +18,7 @@ export const eventsData: ChessEvent[] = [
     time: "9:00 AM - 1:00 PM",
     location: "Amritsar Chess Club, 12 Race Course Road, Amritsar",
     entryFee: 200,
-    brochureUrl: "/brochure.pdf",
+    brochureUrl: "/bro2.jpeg",
     description: "Category: U-11. Time Control: 15+10 seconds. Prizes: 1st to 3rd Trophies for each category and medals to all players. Contacts: Shubham Trikha (9592004076), Yogesh Sharma (9465477290), Kunal Sharma (9988320542). Payment: GPay to 9592004076.",
     status: "upcoming"
   },
@@ -29,7 +29,7 @@ export const eventsData: ChessEvent[] = [
     time: "3:00 PM - 7:00 PM",
     location: "Amritsar Chess Club, 12 Race Course Road, Amritsar",
     entryFee: 200,
-    brochureUrl: "/brochure.pdf",
+    brochureUrl: "/bro1.jpeg",
     description: "Category: Under 17. Time Control: 15+10 seconds. Prizes: 1st to 3rd Trophies for each category and medals to all players. Contacts: Shubham Trikha (9592004076), Yogesh Sharma (9465477290), Kunal Sharma (9988320542). Payment: GPay to 9592004076.",
     status: "upcoming"
   }
