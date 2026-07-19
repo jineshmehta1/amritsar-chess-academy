@@ -123,6 +123,17 @@ export function CompletedTournaments() {
                 place="3rd"
               />
             </div>
+
+            <div className="pt-4 border-t border-slate-100 space-y-2">
+              <p className="text-slate-500 text-[10px] font-black uppercase tracking-wide">Tournament Group Photo</p>
+              <div className="rounded-2xl overflow-hidden border border-slate-100 shadow-sm bg-slate-50 aspect-[16/10]">
+                <img
+                  src="/g11.jpeg"
+                  alt="Under 11 Tournament Group Photo"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -215,6 +226,17 @@ export function CompletedTournaments() {
                 </div>
               </div>
 
+            </div>
+
+            <div className="pt-4 border-t border-slate-100 space-y-2">
+              <p className="text-slate-500 text-[10px] font-black uppercase tracking-wide">Tournament Group Photo</p>
+              <div className="rounded-2xl overflow-hidden border border-slate-100 shadow-sm bg-slate-50 aspect-[16/10]">
+                <img
+                  src="/g17.jpeg"
+                  alt="Under 17 Tournament Group Photo"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
             </div>
           </div>
         </motion.div>

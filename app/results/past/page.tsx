@@ -234,6 +234,21 @@ export default function PastResultsPage() {
                       <WinnerCard key={idx} {...winner} />
                     ))}
                   </div>
+
+                  {/* Group Photo */}
+                  <div className="pt-8 border-t border-slate-100 space-y-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#FF6B00]"></span>
+                      <h4 className="font-black text-[#12123D] text-xs uppercase tracking-wider">Tournament Group Photo</h4>
+                    </div>
+                    <div className="rounded-[2rem] overflow-hidden border border-slate-200/60 shadow-sm bg-slate-50 max-h-[500px]">
+                      <img
+                        src={tourney.id === "u11-july-2026" ? "/g11.jpeg" : "/g17.jpeg"}
+                        alt={`${tourney.name} Group Photo`}
+                        className="w-full h-auto object-cover max-h-[500px] hover:scale-[1.01] transition-transform duration-500"
+                      />
+                    </div>
+                  </div>
                 </section>
               ))
             )}
