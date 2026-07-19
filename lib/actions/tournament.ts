@@ -30,7 +30,12 @@ export async function getTournamentDetails(id: string) {
       },
       rounds: {
         include: {
-          pairings: true
+          pairings: {
+            include: {
+              p1: true,
+              p2: true
+            }
+          }
         },
         orderBy: { roundNumber: 'asc' }
       }
