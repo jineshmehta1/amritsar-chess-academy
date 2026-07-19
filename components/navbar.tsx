@@ -73,6 +73,12 @@ const navLinks = [
         icon: Trophy,
       },
       {
+        href: "/results/past",
+        label: "Past Winners",
+        desc: "Championship hall of fame",
+        icon: Trophy,
+      },
+      {
         href: "/achievements",
         label: "Achievements",
         desc: "Student achievements",

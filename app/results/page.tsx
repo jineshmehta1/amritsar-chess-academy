@@ -1,7 +1,7 @@
 import { getTournaments, getTournamentDetails } from "@/lib/actions/tournament";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Trophy, Medal, Users, Target, Calendar } from "lucide-react";
+import { Trophy, Medal, Users, Target, Calendar, Star } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -45,6 +45,14 @@ export default async function ResultsPage() {
             <p className="text-slate-500 text-lg max-w-xl mx-auto">
               View real-time pairings, results and the leaderboard for all Amritsar Chess Club tournaments.
             </p>
+            <div className="pt-2">
+              <Link href="/results/past">
+                <span className="inline-flex items-center gap-2 bg-[#12123D] text-white hover:bg-[#FF6B00] px-6 py-2.5 rounded-full text-sm font-bold transition-all hover:scale-105 shadow-md cursor-pointer">
+                  <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                  View Past Tournament Winners (Hall of Fame)
+                </span>
+              </Link>
+            </div>
           </div>
 
           {tournaments.length === 0 ? (
