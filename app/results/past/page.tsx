@@ -98,7 +98,7 @@ export default function PastResultsPage() {
           division: "Under 11",
         },
         {
-          name: "Prabnoor Singh",
+          name: "Puranjot Singh",
           prize: "Second Prize Winner",
           image: "/112.jpeg",
           initials: "PS",
