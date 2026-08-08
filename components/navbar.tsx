@@ -277,7 +277,7 @@ export function Navbar() {
               className="hidden lg:flex items-center gap-2 text-sm font-bold text-[#12123D] hover:text-[#FF6B00] px-2 xl:px-4 transition-colors"
             >
               <LayoutDashboard className="w-4 h-4" />
-              <span className="hidden xl:inline">Classroom</span>
+              <span className="hidden lg:inline">Student Login</span>
             </Link>
 
             {/* Modal Trigger Button */}

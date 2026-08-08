@@ -59,3 +59,64 @@ model Pairing {
 
   result   String? // "1-0", "0-1", "0.5-0.5", or null for pending
 }
+
+model User {
+  id         String   @id @default(cuid())
+  username   String   @unique
+  password   String
+  role       String   // "ADMIN" or "STUDENT"
+  name       String
+  parentName String?
+  dob        String?
+  email      String?
+  phone      String?
+  rating     Int?     @default(0)
+  batchId    String?
+  batch      Batch?   @relation(fields: [batchId], references: [id], onDelete: SetNull)
+  attempts   PuzzleAttempt[]
+  createdAt  DateTime @default(now())
+}
+
+model Batch {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  students  User[]
+  puzzles   Puzzle[]
+  createdAt DateTime @default(now())
+}
+
+model PuzzleFolder {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  puzzles   Puzzle[]
+  createdAt DateTime @default(now())
+}
+
+model Puzzle {
+  id             String   @id @default(cuid())
+  title          String
+  pgn            String
+  fen            String?
+  level          String   // BEGINNER, INTERMEDIATE, ADVANCED
+  assignedBatchId String?
+  assignedBatch  Batch?   @relation(fields: [assignedBatchId], references: [id], onDelete: SetNull)
+  solutionHint   String?
+  description    String?
+  folderId       String?
+  folder         PuzzleFolder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  attempts       PuzzleAttempt[]
+  createdAt      DateTime @default(now())
+}
+
+model PuzzleAttempt {
+  id        String   @id @default(cuid())
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  puzzleId  String
+  puzzle    Puzzle   @relation(fields: [puzzleId], references: [id], onDelete: Cascade)
+  solved    Boolean
+  createdAt DateTime @default(now())
+
+  @@unique([studentId, puzzleId])
+}
+

@@ -15,7 +15,6 @@ const nextConfig = {
       { source: '/programs', destination: '/curriculum', permanent: false },
       { source: '/online-classes', destination: '/classes', permanent: false },
       { source: '/puzzle-arena', destination: '/analysis', permanent: false },
-      { source: '/login', destination: '/contact', permanent: false },
       {
         source: '/:path*',
         has: [

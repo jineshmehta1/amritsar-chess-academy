@@ -1,6 +1,5 @@
 "use client"
 
-import Head from "next/head"
 import Link from "next/link"
 import { useBookDemo } from "@/components/BookDemoProvider"
 import { Button } from "@/components/ui/button"
@@ -23,13 +22,8 @@ export default function HomePage() {
   const orange = "#FF6B00"
 
   return (
-    <>
-      <Head>
-        <title>Amritsar Chess Club | International Standard Chess Coaching</title>
-      </Head>
-
-      <div className="min-h-screen bg-white">
-        <Navbar />
+    <div className="min-h-screen bg-white">
+      <Navbar />
 
         <main>
           {/* JASPER-STYLE HERO SECTION */}
@@ -148,9 +142,8 @@ export default function HomePage() {
         </main>
 
         <Footer />
-      </div>
 
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes gradient {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -162,8 +155,8 @@ export default function HomePage() {
         .perspective-[1000px] {
           perspective: 1000px;
         }
-      `}</style>
-    </>
+      `}} />
+    </div>
   )
 }
 
